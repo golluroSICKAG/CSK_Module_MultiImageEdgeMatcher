@@ -2,26 +2,20 @@
 
 ## INFO: Draft version. Not further developed / tested so far! Check for available GitHub forks of this repository to see latest updates.
 
-Module / Application to provide [...] functionality.
+Module to provide image EdgeMatcher functionality.
 
-*If available, please also add a screenshot/gif of the UI of the module here placed within /docu/media/ (see code)*
-![](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/blob/main/docu/media/UI_Screenshot.png)
+![plot](./docu/media/UI_Screenshot.png)
 
 ## How to Run
 
 [***...please fill with informations...***]  
-For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
+For further information check out the [documentation](https://raw.githack.com/golluroSICKAG/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
 
 ## Information
 
 Tested on:
 [Device] - [firmware]
 ...
-
-[***optionally***]
-Following CSK modules are used for this application via Git subtrees and should NOT be further developed within this repository (see [contribution guideline](https://github.com/SICKAppSpaceCodingStarterKit/.github/blob/main/Contribution_Guideline.md) of this GitHub organization):  
-
-  * CSK_Module_XYZ (release/tag v1.2.3)
 
 This application / module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  

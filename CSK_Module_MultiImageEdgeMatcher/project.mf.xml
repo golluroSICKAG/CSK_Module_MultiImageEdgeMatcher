@@ -6,16 +6,19 @@
         </crown>
         <crown name="CSK_MultiImageEdgeMatcher">
             <trait>released</trait>
-            <desc>Please fill in information regarding: What is the idea of this module and its features? +
-How to use this module in general.... like: +
-{empty} + 
-Typically the features of this module are used like this (check also main script of this module): +
-{empty} + 
-**1) Setup** +
-ToDo +
-{empty} + 
-**2) Something else....** +
-</desc>
+            <desc>Module to provide EdgeMatcher functionality. Multiple instances can be created and will run in multiple threads on the device. +
+This module provides a UI for all relevant features. +
+{empty} +
+Typically to configure this module to work with other modules you should do this: +
+{empty} +
+1) If multiple instances are needed, these can be added via addInstance() (not needed if you only use 1 single instace). +
+2) Select the instance you want to configur via setInstance(). +
+3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage'). +
+4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor'. +
+5) Press the "Teach Mode" button within the UI. It will provide a ROI editor to select a an object and show its teached edges. Press the button again to confirm the teached structure.+
+6) Define the minimum valid score via 'setMinScore'. +
+7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
+{empty} +</desc>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
                     <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
@@ -42,12 +45,6 @@ ToDo +
                 </event>
                 <event name="OnDataLoadedOnReboot">
                     <desc>Event to call if module tried to load parameters and should be ready.</desc>
-                </event>
-                <event name="OnNewResultNUM">
-                    <desc>Example of dynamically created event to provide result of instance. +
-NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +
-INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
-                    <param desc="Result" multiplicity="1" name="result" type="bool"/>
                 </event>
                 <event name="OnNewParameterName">
                     <desc>Notify name of persistent data parameter.</desc>
@@ -83,9 +80,64 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +</desc>
                     <param desc="Eventname to use to forward value." multiplicity="1" name="eventname" type="string"/>
                     <param desc="Value to forward." multiplicity="1" name="value" type="auto"/>
                 </event>
-                <event name="OnNewResult">
-                    <desc>Generic event to notify results. E.g. to forward results from single instances.</desc>
-                    <param desc="Result" multiplicity="1" name="result" type="bool"/>
+                <event name="OnNewViewerID">
+                    <desc>Notify viewerID for viewer in UI for currently selected instance.</desc>
+                    <param desc="ViewerID" multiplicity="1" name="id" type="string"/>
+                </event>
+                <event name="OnNewStatusRegisteredEvent">
+                    <desc>Notify event instance is registered to receive new image to process.</desc>
+                    <param desc="Name of event." multiplicity="1" name="eventname" type="string"/>
+                </event>
+                <event name="OnROIEditorActive">
+                    <desc>Notify if ROI editor is currently active in UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusShowImage">
+                    <desc>Notify if image should be showed in UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusEdgeThreshold">
+                    <desc>Notify currently used edge threshold.</desc>
+                    <param desc="Edge threshold." multiplicity="1" name="threshold" type="int"/>
+                </event>
+                <event name="OnNewStatusMinimalScore">
+                    <desc>Notify currently minimal valid match score.</desc>
+                    <param desc="Minimal valid match score." multiplicity="1" name="score" type="float"/>
+                </event>
+                <event name="OnNewStatusDownsampleFactor">
+                    <desc>Notify currently used downsample factor of edge matcher.</desc>
+                    <param desc="Downsample factor" multiplicity="1" name="factor" type="int"/>
+                </event>
+                <event name="OnNewStatusMaxMatches">
+                    <desc>Notify maximum amount of matches to find.</desc>
+                    <param desc="Maximum amount of matches." multiplicity="1" name="max" type="int"/>
+                </event>
+                <event name="OnNewAlignedImageNUM">
+                    <desc>Example of dynamically created event to provide aligned image to be used for post processing. +
+NUM will be replaced by the number of instance (e.g. "OnNewAlignedImage1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param alias="Image" desc="Aligned image" multiplicity="1" name="image" type="object"/>
+                </event>
+                <event name="OnNewStatusMatchScoreResultNUM">
+                    <desc>Notify score of match.
+Example of dynamically created event to provide score of match. +
+NUM will be replaced by the number of instance (e.g. "OnNewStatusMatchScoreResult1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param desc="Score of match." multiplicity="1" name="score" type="float"/>
+                </event>
+                <event name="OnNewStatusMatchScoreResult">
+                    <desc>Notify score of found match of currently selected EdgeMatcher instance.</desc>
+                    <param desc="Score of match." multiplicity="1" name="score" type="string"/>
+                </event>
+                <event name="OnNewStatusFoundMatches">
+                    <desc>Notify amount of found matches of currently selected EdgeMatcher instance.</desc>
+                    <param desc="Amount of found matches." multiplicity="1" name="amount" type="string"/>
+                </event>
+                <event name="OnNewStatusFoundMatchesNUM">
+                    <desc>Example of dynamically created event to provide result of found matches. +
+NUM will be replaced by the number of instance (e.g. "OnNewStatusFoundMatches1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param desc="Amount of found matches." multiplicity="1" name="amount" type="int"/>
                 </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
@@ -123,7 +175,7 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +</desc>
 NUM will be replaced by the number of instance (e.g. "processInstance1"). +
 INFO: Other modules can check via "Script.isServedAsFunction" if function of sepecific instance exists. +
 Needs then to be called via "Script.callFunction".</desc>
-                    <param alias="Alias" desc="Transferred object (optional)" multiplicity="?" name="object" type="object"/>
+                    <param alias="Image" desc="Transferred object (optional)" multiplicity="1" name="image" type="object"/>
                     <return desc="Processing result (optional)." multiplicity="?" name="result" type="bool"/>
                 </function>
                 <function name="addInstance">
@@ -133,6 +185,33 @@ Needs then to be called via "Script.callFunction".</desc>
                     <desc>Function to reset instances to one single instance. +
 IMPORTANT: As instances start their own threads, the module needs to be restarted if new instances are needed... (see AppEngine docu for "Script.startScript").</desc>
                 </function>
+                <function name="setTeachMode">
+                    <desc>Set status of teach mode for edge matcher. +
+If TRUE, the viewer in the UI will install an editor for the ROI. + 
+If FALSE it will update the masks accordingly.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="setEdgeThreshold">
+                    <desc>Function to set edge threshold.</desc>
+                    <param desc="Edge threshold" multiplicity="1" name="threshold" type="int"/>
+                </function>
+                <function name="setMinimumValidScore">
+                    <desc>Function to set minimal valid match score.</desc>
+                    <param desc="Minimal valid match score." multiplicity="1" name="minScore" type="float"/>
+                </function>
+                <function name="setDownsampleFactor">
+                    <desc>Function to set downsample factor of edge matcher. +
+Setting this parameter will invalidate any previous teach call!</desc>
+                    <param desc="Downsample factor." multiplicity="1" name="factor" type="int"/>
+                </function>
+                <function name="setMaximumMatches">
+                    <desc>Function to set maximum amount of matches to find.</desc>
+                    <param desc="Maximum amount of matches." multiplicity="1" name="max" type="int"/>
+                </function>
+                <function name="setShowImage">
+                    <desc>Function to select if image should be shown on UI.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
@@ -141,7 +220,7 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
         <meta key="crown2-flow-engine">false</meta>
-        <meta key="LuaLoadAllEngineAPI">true</meta>
+        <meta key="LuaLoadAllEngineAPI">false</meta>
         <entry default="CSK_Module_MultiImageEdgeMatcher.lua" path="scripts"/>
     </application>
 </manifest>

@@ -31,7 +31,7 @@
 -- If app property "LuaLoadAllEngineAPI" is FALSE, use this to load and check for required APIs
 -- This can improve performance of garbage collection
 
--- _G.availableAPIs = require('ImageProcessing/MultiImageEdgeMatcher/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
+_G.availableAPIs = require('ImageProcessing/MultiImageEdgeMatcher/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
 -----------------------------------------------------------
 -- Logger
 _G.logger = Log.SharedLogger.create('ModuleLogger')
@@ -99,7 +99,7 @@ local function main()
   -- Can be used e.g. like this
   ----------------------------------------------------------------------------------------
 
-  --startProcessing() --> see above
+  CSK_MultiImageEdgeMatcher.setSelectedInstance(1)
   CSK_MultiImageEdgeMatcher.pageCalled() -- Update UI
 
 end

@@ -22,22 +22,37 @@ local multiImageEdgeMatcher_Instances -- Reference to instances handle
 local selectedInstance = 1 -- Which instance is currently selected
 local helperFuncs = require('ImageProcessing/MultiImageEdgeMatcher/helper/funcs')
 
+local roiEditorActive = false -- Setting of ROI is currently active
+
 -- ************************ UI Events Start ********************************
 -- Only to prevent WARNING messages, but these are only examples/placeholders for dynamically created events/functions
 ----------------------------------------------------------------
 local function emptyFunction()
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.processInstanceNUM", emptyFunction)
-
-Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewResultNUM", "MultiImageEdgeMatcher_OnNewResultNUM")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewValueToForwardNUM", "MultiImageEdgeMatcher_OnNewValueToForwardNUM")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewValueUpdateNUM", "MultiImageEdgeMatcher_OnNewValueUpdateNUM")
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM', 'MultiImageEdgeMatcher_OnNewAlignedImageNUM')
+
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM', 'MultiImageEdgeMatcher_OnNewStatusFoundMatchesNUM')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM', 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResultNUM')
 ----------------------------------------------------------------
 
 -- Real events
 --------------------------------------------------
--- Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewEvent", "MultiImageEdgeMatcher_OnNewEvent")
-Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewResult', 'MultiImageEdgeMatcher_OnNewResult')
+
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent', 'MultiImageEdgeMatcher_OnNewStatusRegisteredEvent')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewViewerID', 'MultiImageEdgeMatcher_OnNewViewerID')
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusShowImage", "MultiImageEdgeMatcher_OnNewStatusShowImage")
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnROIEditorActive", "MultiImageEdgeMatcher_OnROIEditorActive")
+
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusEdgeThreshold', 'MultiImageEdgeMatcher_OnNewStatusEdgeThreshold')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore', 'MultiImageEdgeMatcher_OnNewStatusMinimalScore')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor', 'MultiImageEdgeMatcher_OnNewStatusDownsampleFactor')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches', 'MultiImageEdgeMatcher_OnNewStatusMaxMatches')
+
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches', 'MultiImageEdgeMatcher_OnNewStatusFoundMatches')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult', 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult')
 
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot", "MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnPersistentDataModuleAvailable", "MultiImageEdgeMatcher_OnPersistentDataModuleAvailable")
@@ -52,8 +67,6 @@ Script.serveEvent("CSK_MultiImageEdgeMatcher.OnUserLevelOperatorActive", "MultiI
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnUserLevelMaintenanceActive", "MultiImageEdgeMatcher_OnUserLevelMaintenanceActive")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnUserLevelServiceActive", "MultiImageEdgeMatcher_OnUserLevelServiceActive")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnUserLevelAdminActive", "MultiImageEdgeMatcher_OnUserLevelAdminActive")
-
--- ...
 
 -- ************************ UI Events End **********************************
 
@@ -112,7 +125,10 @@ end
 ---@param value auto Value to update
 ---@param selectedObject int? Optionally if internal parameter should be used for internal objects
 local function handleOnNewValueUpdate(instance, parameter, value, selectedObject)
-    multiImageEdgeMatcher_Instances[instance].parameters.internalObject[selectedObject][parameter] = value
+    if parameter == 'matcher' then
+      local newMatcher = Object.deserialize(value, 'JSON')
+      multiImageEdgeMatcher_Instances[instance].parameters.matcher = newMatcher
+    end
 end
 
 --- Function to get access to the multiImageEdgeMatcher_Model object
@@ -170,6 +186,19 @@ local function handleOnExpiredTmrMultiImageEdgeMatcher()
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewSelectedInstance', selectedInstance)
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewInstanceList", helperFuncs.createStringListBySize(#multiImageEdgeMatcher_Instances))
 
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', multiImageEdgeMatcher_Instances[selectedInstance].parameters.registeredEvent)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewViewerID', 'multiImageEdgeMatcherViewer' .. tostring(selectedInstance))
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusShowImage', multiImageEdgeMatcher_Instances[selectedInstance].parameters.showImage)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnROIEditorActive', roiEditorActive)
+
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusEdgeThreshold', multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimalScore', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusDownsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
+
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundMatches", '0')
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusMatchScoreResult", '0.0')
+
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot", multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot)
   Script.notifyEvent("MultiImageEdgeMatcher_OnPersistentDataModuleAvailable", multiImageEdgeMatcher_Instances[selectedInstance].persistentModuleAvailable)
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewParameterName", multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
@@ -188,6 +217,10 @@ end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.pageCalled", pageCalled)
 
 local function setSelectedInstance(instance)
+  roiEditorActive = false
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'chancelEditors', true)
+
+
   selectedInstance = instance
   _G.logger:info(nameOfModule .. ": New selected instance = " .. tostring(selectedInstance))
   multiImageEdgeMatcher_Instances[selectedInstance].activeInUI = true
@@ -229,9 +262,25 @@ local function setRegisterEvent(event)
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.setRegisterEvent", setRegisterEvent)
 
+local function setShowImage(status)
+  _G.logger:info(nameOfModule .. ": Set show image: " .. tostring(status))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.showImage = status
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'showImage', status)
+end
+Script.serveFunction("CSK_MultiImageEdgeMatcher.setShowImage", setShowImage)
+
 --- Function to share process relevant configuration with processing threads
 local function updateProcessingParameters()
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'value', multiImageEdgeMatcher_Instances[selectedInstance].parameters.value)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'activeInUI', true)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'showImage', multiImageEdgeMatcher_Instances[selectedInstance].parameters.showImage)
+
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'edgeThreshold', multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'downsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minScore', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'matcher', multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher)
+
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'registeredEvent', multiImageEdgeMatcher_Instances[selectedInstance].parameters.registeredEvent)
 
   -- optionally for internal objects...
   --[[
@@ -242,6 +291,42 @@ local function updateProcessingParameters()
   ]]
 
 end
+
+local function setTeachMode(status)
+  _G.logger:info(nameOfModule .. ": Set teach mode: " .. tostring(status))
+  roiEditorActive = status
+  Script.notifyEvent("MultiImageEdgeMatcher_OnROIEditorActive", status)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'roiEditorActive', status)
+end
+Script.serveFunction("CSK_MultiImageEdgeMatcher.setTeachMode", setTeachMode)
+
+local function setEdgeThreshold(threshold)
+  _G.logger:info(nameOfModule .. ": Set edge threshold to: " .. tostring(threshold))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold = threshold
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'edgeThreshold', threshold)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setEdgeThreshold', setEdgeThreshold)
+
+local function setMinimumValidScore(minScore)
+  _G.logger:info(nameOfModule .. ": Set minimal score to: " .. tostring(minScore))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore = minScore
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minScore', minScore)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setMinimumValidScore', setMinimumValidScore)
+
+local function setDownsampleFactor(factor)
+  _G.logger:info(nameOfModule .. ": Set downsample factor to: " .. tostring(factor))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor = factor
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'downsampleFactor', factor)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setDownsampleFactor', setDownsampleFactor)
+
+local function setMaximumMatches(max)
+  _G.logger:info(nameOfModule .. ": Set maximum amount of matches to search for: " .. tostring(max))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches = max
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxMatches', max)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setMaximumMatches', setMaximumMatches)
 
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage
@@ -276,7 +361,11 @@ local function loadParameters()
     local data = CSK_PersistentData.getParameter(multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
     if data then
       _G.logger:info(nameOfModule .. ": Loaded parameters for multiImageEdgeMatcherObject " .. tostring(selectedInstance) .. " from CSK_PersistentData module.")
+
       multiImageEdgeMatcher_Instances[selectedInstance].parameters = helperFuncs.convertContainer2Table(data)
+      local serMatcher = Object.serialize(multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher, 'JSON')
+      local newMatcher = Object.deserialize(serMatcher, 'JSON')
+      multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher = newMatcher
 
       -- If something needs to be configured/activated with new loaded data
       updateProcessingParameters()
