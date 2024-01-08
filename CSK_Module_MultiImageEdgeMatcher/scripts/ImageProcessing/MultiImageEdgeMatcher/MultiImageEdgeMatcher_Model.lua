@@ -31,13 +31,6 @@ function multiImageEdgeMatcher.create(multiImageEdgeMatcherInstanceNo)
   self.multiImageEdgeMatcherInstanceNoString = tostring(self.multiImageEdgeMatcherInstanceNo) -- Number of this instance as string
   self.helperFuncs = require('ImageProcessing/MultiImageEdgeMatcher/helper/funcs') -- Load helper functions
 
-  -- Optionally check if specific API was loaded via
-  --[[
-  if _G.availableAPIs.specific then
-  -- ... doSomething ...
-  end
-  ]]
-
   -- Create parameters etc. for this module instance
   self.activeInUI = false -- Check if this instance is currently active in UI
 
@@ -66,6 +59,9 @@ function multiImageEdgeMatcher.create(multiImageEdgeMatcherInstanceNo)
   self.parameters.maxMatches = 1 -- Maximum amount of matches to accept
   self.parameters.showImage = true -- Show image in UI
 
+  self.parameters.resultTransX = 320 -- Pixel to translate the found result position in x
+  self.parameters.resultTransY = 240 -- Pixel to translate the found result position in y
+
   -- Parameters to give to the processing script
   self.multiImageEdgeMatcherProcessingParams = Container.create()
   self.multiImageEdgeMatcherProcessingParams:add('multiImageEdgeMatcherInstanceNumber', multiImageEdgeMatcherInstanceNo, "INT")
@@ -77,6 +73,9 @@ function multiImageEdgeMatcher.create(multiImageEdgeMatcherInstanceNo)
   self.multiImageEdgeMatcherProcessingParams:add('minScore', self.parameters.minScore, "FLOAT")
   self.multiImageEdgeMatcherProcessingParams:add('downsampleFactor', self.parameters.downsampleFactor, "INT")
   self.multiImageEdgeMatcherProcessingParams:add('maxMatches', self.parameters.maxMatches, "INT")
+
+  self.multiImageEdgeMatcherProcessingParams:add('resultTransX', self.parameters.resultTransX, "INT")
+  self.multiImageEdgeMatcherProcessingParams:add('resultTransY', self.parameters.resultTransY, "INT")
 
   -- Handle processing
   Script.startScript(self.parameters.processingFile, self.multiImageEdgeMatcherProcessingParams)

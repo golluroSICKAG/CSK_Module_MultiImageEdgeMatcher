@@ -42,6 +42,25 @@
 												</davinci-drop-down>
 											</layout-column>
 										</layout-row>
+										<layout-row id="RowLayout18"
+											style="justify-content: space-between; align-items: center">
+											<layout-column id="ColumnLayout26" style="align-items: stretch">
+												<davinci-value-display id="VD_ShowImage" value="Show image:">
+												</davinci-value-display>
+											</layout-column>
+											<layout-column id="ColumnLayout27" style="align-items: flex-end">
+												<davinci-toggle-switch id="TS_ShowImage">
+												<crown-edpws-binding property="checked"
+													name="CSK_MultiImageEdgeMatcher/OnNewStatusShowImage"
+													update-on-resume>
+												</crown-edpws-binding>
+												<crown-binding event="change"
+													name="CSK_MultiImageEdgeMatcher/setShowImage"
+													path="param/args/status" auto-commit>
+												</crown-binding>
+												</davinci-toggle-switch>
+											</layout-column>
+										</layout-row>
 										<layout-row id="RowLayout16" style="align-items: center">
 											<layout-column id="ColumnLayout20" style="align-items: stretch">
 												<davinci-value-display id="VD_RegisteredEvent"
@@ -60,25 +79,6 @@
 													path="param/args/event" auto-commit>
 												</crown-binding>
 												</davinci-text-field>
-											</layout-column>
-										</layout-row>
-										<layout-row id="RowLayout18"
-											style="justify-content: space-between; align-items: center">
-											<layout-column id="ColumnLayout26" style="align-items: stretch">
-												<davinci-value-display id="VD_ShowImage" value="Show image:">
-												</davinci-value-display>
-											</layout-column>
-											<layout-column id="ColumnLayout27" style="align-items: flex-end">
-												<davinci-toggle-switch id="TS_ShowImage">
-												<crown-edpws-binding property="checked"
-													name="CSK_MultiImageEdgeMatcher/OnNewStatusShowImage"
-													update-on-resume>
-												</crown-edpws-binding>
-												<crown-binding event="change"
-													name="CSK_MultiImageEdgeMatcher/setShowImage"
-													path="param/args/status" auto-commit>
-												</crown-binding>
-												</davinci-toggle-switch>
 											</layout-column>
 										</layout-row>
 										<davinci-button id="Button1" type="primary" icon-position="append"
@@ -168,6 +168,39 @@
 												<crown-binding event="change"
 													name="CSK_MultiImageEdgeMatcher/setMaximumMatches"
 													path="param/args/max" auto-commit>
+												</crown-binding>
+												</davinci-numeric-field>
+											</layout-column>
+										</layout-row>
+										<davinci-value-display id="VD_ResultTranslation"
+											value="Result translation in X / Y directin [px]:">
+										</davinci-value-display>
+										<layout-row id="RowLayout19">
+											<layout-column id="ColumnLayout28" style="align-items: stretch">
+												<davinci-numeric-field id="NF_ResultTransX" type="outline" min="0"
+													max="9999" ticks="1" group-separator="," decimal-separator="."
+													format-pattern="0">
+												<crown-edpws-binding property="value"
+													name="CSK_MultiImageEdgeMatcher/OnNewStatusResultTranslateX"
+													update-on-resume>
+												</crown-edpws-binding>
+												<crown-binding event="change"
+													name="CSK_MultiImageEdgeMatcher/setResultTransX"
+													path="param/args/value" auto-commit>
+												</crown-binding>
+												</davinci-numeric-field>
+											</layout-column>
+											<layout-column id="ColumnLayout29" style="align-items: stretch">
+												<davinci-numeric-field id="NF_ResultTransY" type="outline" min="0"
+													max="9999" ticks="1" group-separator="," decimal-separator="."
+													format-pattern="0">
+												<crown-edpws-binding property="value"
+													name="CSK_MultiImageEdgeMatcher/OnNewStatusResultTranslateY"
+													update-on-resume>
+												</crown-edpws-binding>
+												<crown-binding event="change"
+													name="CSK_MultiImageEdgeMatcher/setResultTransY"
+													path="param/args/value" auto-commit>
 												</crown-binding>
 												</davinci-numeric-field>
 											</layout-column>

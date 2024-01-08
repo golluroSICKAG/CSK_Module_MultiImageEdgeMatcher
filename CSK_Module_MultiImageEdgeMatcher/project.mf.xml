@@ -11,13 +11,13 @@ This module provides a UI for all relevant features. +
 {empty} +
 Typically to configure this module to work with other modules you should do this: +
 {empty} +
-1) If multiple instances are needed, these can be added via addInstance() (not needed if you only use 1 single instace). +
+1) If multiple instances are needed, these can be added via 'addInstance' (not needed if you only use 1 single instace). +
 2) Select the instance you want to configur via setInstance(). +
 3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage'). +
 4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor'. +
 5) Press the "Teach Mode" button within the UI. It will provide a ROI editor to select a an object and show its teached edges. Press the button again to confirm the teached structure.+
 6) Define the minimum valid score via 'setMinScore'. +
-7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
+7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
 {empty} +</desc>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
@@ -68,7 +68,7 @@ Typically to configure this module to work with other modules you should do this
                 </event>
                 <event name="OnNewValueUpdateNUM">
                     <desc>Example of dynamically created event to sync paramters between instance threads and Controller part of module. +
-NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +</desc>
+NUM will be replaced by the number of instance (e.g. "OnNewValueUpdate1"). +</desc>
                     <param desc="Instance new value is coming from." multiplicity="1" name="instance" type="int"/>
                     <param desc="Name of the paramter to update/sync." multiplicity="1" name="parameter" type="string"/>
                     <param desc="Value to update." multiplicity="1" name="value" type="auto"/>
@@ -76,7 +76,7 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +</desc>
                 </event>
                 <event name="OnNewValueToForwardNUM">
                     <desc>Example of dynamically created event to forward data from instance thread to Controller part of module, e.g. to forward values to UI. +
-NUM will be replaced by the number of instance (e.g. "OnNewResult1"). +</desc>
+NUM will be replaced by the number of instance (e.g. "OnNewValueToForward1"). +</desc>
                     <param desc="Eventname to use to forward value." multiplicity="1" name="eventname" type="string"/>
                     <param desc="Value to forward." multiplicity="1" name="value" type="auto"/>
                 </event>
@@ -139,6 +139,20 @@ NUM will be replaced by the number of instance (e.g. "OnNewStatusFoundMatches1")
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param desc="Amount of found matches." multiplicity="1" name="amount" type="int"/>
                 </event>
+                <event name="OnNewTransformationNUM">
+                    <desc>Example of dynamically created event to provide transformation data to be used for post processing. +
+NUM will be replaced by the number of instance (e.g. "OnNewTransformation1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param alias="Transform" desc="Transformation" multiplicity="1" name="transform" type="object"/>
+                </event>
+                <event name="OnNewStatusResultTranslateX">
+                    <desc>Notify pixel to transform result in x direction.</desc>
+                    <param desc="Pixel in x direction." multiplicity="1" name="value" type="int"/>
+                </event>
+                <event name="OnNewStatusResultTranslateY">
+                    <desc>Notify pixel to transform result in y direction.</desc>
+                    <param desc="Pixel in x direction." multiplicity="1" name="value" type="int"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter" multiplicity="1" name="name" type="string"/>
@@ -167,8 +181,8 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                 </function>
                 <function name="setRegisterEvent">
                     <desc>Configure event that this module should listen to. If this one is notified, it will be linked to internal processing function. +
-(Will be set to currently active instance, see "setSelectedObject")</desc>
-                    <param desc="(external) Event name to listen to." multiplicity="1" name="event" type="string"/>
+(Will be set to currently active instance, see 'setSelectedObject')</desc>
+                    <param desc="Event name to listen to." multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="processInstanceNUM">
                     <desc>Example of dynamically served function to process internally coded function. +
@@ -211,6 +225,14 @@ Setting this parameter will invalidate any previous teach call!</desc>
                 <function name="setShowImage">
                     <desc>Function to select if image should be shown on UI.</desc>
                     <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="setResultTransX">
+                    <desc>Function to set image translation in x direction added to found object position.</desc>
+                    <param desc="Pixel in x direction." multiplicity="1" name="value" type="int"/>
+                </function>
+                <function name="setResultTransY">
+                    <desc>Function to set image translation in y direction added to found object position.</desc>
+                    <param desc="Pixel in y direction." multiplicity="1" name="value" type="int"/>
                 </function>
             </serves>
         </crown>

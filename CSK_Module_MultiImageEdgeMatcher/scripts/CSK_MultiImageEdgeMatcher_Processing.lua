@@ -26,8 +26,6 @@ local matcherID = 'matcherID'
 local roiEditorActive = false -- is ROI editor in viewer active
 local installedEditorIconic = nil -- is editor in viewer installed on an object like pipette, ROI, mask
 
---local matcher = Image.Matching.EdgeMatcher.create() -- EdgeMatcher
-
 local decorationOK = View.ShapeDecoration.create()
 decorationOK:setFillColor(0, 127, 195, 50)
 decorationOK:setLineWidth(3)
@@ -55,10 +53,12 @@ Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewValueUpdate" .. multiImageEdge
 -- Event to forward aligned image
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewAlignedImage" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewAlignedImage" .. multiImageEdgeMatcherInstanceNumberString, 'object:1:Image')
 
+-- Event to forward transformation
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, 'object:1:Transform')
+
 local processingParams = {}
 processingParams.matcher = Image.Matching.EdgeMatcher.create() -- EdgeMatcher
---TODO
---processingParams.matcher:setProcessingUnit('CPU')
+--processingParams.matcher:setProcessingUnit('CPU') -- currently not supported, future improvement
 processingParams.registeredEvent = scriptParams:get('registeredEvent')
 processingParams.activeInUI = false
 processingParams.showImage = scriptParams:get('showImage')
@@ -71,6 +71,9 @@ processingParams.maxMatches = scriptParams:get('maxMatches')
 processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
 processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
 processingParams.matcher:setMaxMatches(processingParams.maxMatches)
+
+processingParams.resultTransX = scriptParams:get('resultTransX')
+processingParams.resultTransY = scriptParams:get('resultTransY')
 
 ---------------------------
 
@@ -130,7 +133,7 @@ end
 
 local function handleOnNewProcessing(image)
 
-  _G.logger:info(nameOfModule .. ": Check object on instance No." .. multiImageEdgeMatcherInstanceNumberString)
+  _G.logger:fine(nameOfModule .. ": Check object on instance No." .. multiImageEdgeMatcherInstanceNumberString)
 
   -- Set ROI for actual color if just configured
   if roiEditorActive == true then
@@ -149,7 +152,7 @@ local function handleOnNewProcessing(image)
     return
   end
 
-  --TODO
+  -- Future improvement
   --[[
   -- Check size of queue
   local imageQueueSize = imageQueue:getSize()
@@ -205,9 +208,10 @@ local function handleOnNewProcessing(image)
 
         if j == 1 then
           local transPose = poses[j]:invert()
-          local movedPose = Transform.translate2D(transPose, 320, 240)
+          local movedPose = Transform.translate2D(transPose, processingParams.resultTransX, processingParams.resultTransY)
           local transImage = image:transform(movedPose)
 
+          Script.notifyEvent('MultiImageEdgeMatcher_OnNewTransformation' .. multiImageEdgeMatcherInstanceNumberString, movedPose)
           Script.notifyEvent('MultiImageEdgeMatcher_OnNewAlignedImage' .. multiImageEdgeMatcherInstanceNumberString, transImage)
           if processingParams.showImage and processingParams.activeInUI then
             transViewer:addImage(transImage)
@@ -216,15 +220,9 @@ local function handleOnNewProcessing(image)
         end
       end
     end
-  else
   end
   viewer:present("LIVE")
 
-  --_G.logger:info(nameOfModule .. ": Processing on MultiImageEdgeMatcher" .. multiImageEdgeMatcherInstanceNumberString .. " was = " .. tostring(result))
-  --Script.notifyEvent('MultiImageEdgeMatcher_OnNewResult'.. multiImageEdgeMatcherInstanceNumberString, true)
-
-  --Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiColorSelection_CustomEventName', 'content')
-  --if processingParams.selectedStep ~= '5' or latestImage == nil then
   if latestImage == nil then
     latestImage = image
   end
@@ -260,29 +258,10 @@ View.register(viewer, 'OnChange', handleOnChangeEditor)
 local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter, value, internalObjectNo)
 
   if multiImageEdgeMatcherNo == multiImageEdgeMatcherInstanceNumber then -- set parameter only in selected script
-    _G.logger:info(nameOfModule .. ": Update parameter '" .. parameter .. "' of multiImageEdgeMatcherInstanceNo." .. tostring(multiImageEdgeMatcherNo) .. " to value = " .. tostring(value))
-
-    --[[
-    if internalObjectNo then
-      _G.logger:info(nameOfModule .. ": Update parameter '" .. parameter .. "' of multiImageEdgeMatcherInstanceNo." .. tostring(multiImageEdgeMatcherNo) .. " of internalObject No." .. tostring(internalObjectNo) .. " to value = " .. tostring(value))
-      processingParams.internalObjects[internalObjectNo][parameter] = value
-
-    elseif parameter == 'FullSetup' then
-      if type(value) == 'userdata' then
-        if Object.getType(value) == 'Container' then
-            setAllProcessingParameters(value)
-        end
-      end
-
-    -- further checks
-    --elseif parameter == 'chancelEditors' then
-    end
-
-    else
-    ]]
+    _G.logger:fine(nameOfModule .. ": Update parameter '" .. parameter .. "' of multiImageEdgeMatcherInstanceNo." .. tostring(multiImageEdgeMatcherNo) .. " to value = " .. tostring(value))
 
     if parameter == 'registeredEvent' then
-      _G.logger:info(nameOfModule .. ": Register instance " .. multiImageEdgeMatcherInstanceNumberString .. " on event " .. value)
+      _G.logger:fine(nameOfModule .. ": Register instance " .. multiImageEdgeMatcherInstanceNumberString .. " on event " .. value)
       if processingParams.registeredEvent and processingParams.registeredEvent ~= '' then
         Script.deregister(processingParams.registeredEvent, handleOnNewProcessing)
         imageQueue:clear()
@@ -291,12 +270,10 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
       Script.register(value, handleOnNewProcessing)
       imageQueue:setFunction(handleOnNewProcessing)
 
-      --gotImageSize = false
-
-    -- elseif parameter == 'someSpecificParameter' then
-    --   --Setting something special...
-    --   processingParams.specificVariable = value
-    --   --Do some more specific...
+    elseif parameter == 'deregisterFromEvent' then
+      _G.logger:fine(nameOfModule .. ": Deregister instance " .. multiImageEdgeMatcherInstanceNumberString .. " from event")
+      Script.deregister(processingParams.registeredEvent, handleOnNewProcessing)
+      processingParams.registeredEvent = ''
 
     elseif parameter == 'chancelEditors' then
       roiEditorActive = false
@@ -311,7 +288,6 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
         else
           viewer:clear()
           viewer:present('LIVE')
-          --  Script.notifyEvent("MultiColorSelection_OnNewValueUpdate" .. multiColorSelectionInstanceNumberString, multiColorSelectionInstanceNumber, 'ROI', processingParams.colorObjects[processingParams.selectedColorObject]["ROI"], processingParams.selectedColorObject)
         end
       end
 
@@ -322,7 +298,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
       local suc = Image.Matching.EdgeMatcher.getTeachPose(value)
       if suc then
         teached = true
-        --TODO Get Values from matcher?
+        -- Future improvement: Get Values from matcher?
       else
         teached = false
       end
@@ -346,7 +322,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
     processingParams[parameter] = false
   end
 
-  --TODO
+  -- Future improvement
   --[[
   if processingParams['activeInUI'] and latestImage and imageQueue:getSize() == 0 then -- and gotImageSize == true then -- parameter ~= 'imageSize' then
     if roiEditorActive then
