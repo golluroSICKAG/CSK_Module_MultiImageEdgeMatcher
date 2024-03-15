@@ -30,7 +30,7 @@ local decorationOK = View.ShapeDecoration.create()
 decorationOK:setFillColor(0, 127, 195, 50)
 decorationOK:setLineWidth(3)
 
-local teached = false
+local tought = false
 
 local centerX_ROI = 100.0 -- xPos of ROI
 local centerY_ROI = 100.0 -- yPos of ROI
@@ -101,7 +101,7 @@ local function teachEdgeMatcher(img)
   local teachPose = processingParams.matcher:teach(img, teachRegion)
   if teachPose then
     _G.logger:info("Teach OK")
-    teached = true
+    tought = true
 
     local serMatcher = Object.serialize(processingParams.matcher, 'JSON')
     Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueUpdate" .. multiImageEdgeMatcherInstanceNumberString, multiImageEdgeMatcherInstanceNumber, 'matcher', serMatcher)
@@ -126,7 +126,7 @@ local function teachEdgeMatcher(img)
     viewer:present()
   else
     _G.logger:warning(nameOfModule .. ": Edge Matcher teaching not succesfull.")
-    teached = false
+    tought = false
   end
 
 end
@@ -171,7 +171,7 @@ local function handleOnNewProcessing(image)
     local parentID = viewer:addImage(image)
   end
 
-  if teached then
+  if tought then
 
     -- Finding object pose
     local poses, scores = processingParams.matcher:match(image)
@@ -275,7 +275,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
       Script.deregister(processingParams.registeredEvent, handleOnNewProcessing)
       processingParams.registeredEvent = ''
 
-    elseif parameter == 'chancelEditors' then
+    elseif parameter == 'cancelEditors' then
       roiEditorActive = false
 
     elseif parameter == 'roiEditorActive' then
@@ -294,13 +294,13 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
     elseif parameter == 'matcher' then
       processingParams.matcher = value
 
-      -- Check if new matcher was teached.
+      -- Check if new matcher was tought.
       local suc = Image.Matching.EdgeMatcher.getTeachPose(value)
       if suc then
-        teached = true
+        tought = true
         -- Future improvement: Get Values from matcher?
       else
-        teached = false
+        tought = false
       end
 
     else
@@ -309,7 +309,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
         processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
       elseif parameter == 'downsampleFactor' then
         processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
-        teached = false
+        tought = false
       elseif parameter == 'maxMatches' then
         processingParams.matcher:setMaxMatches(processingParams.maxMatches)
       end

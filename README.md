@@ -6,7 +6,7 @@ Module to provide 2D Image EdgeMatcher functionality to search for objects withi
 
 ## How to Run
 
-The app includes an intuitive GUI.
+The app includes an intuitive GUI.  
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
 
 ## Information

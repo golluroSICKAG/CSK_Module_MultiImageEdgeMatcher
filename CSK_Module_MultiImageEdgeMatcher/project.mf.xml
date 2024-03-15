@@ -11,11 +11,11 @@ This module provides a UI for all relevant features. +
 {empty} +
 Typically to configure this module to work with other modules you should do this: +
 {empty} +
-1) If multiple instances are needed, these can be added via 'addInstance' (not needed if you only use 1 single instace). +
+1) If multiple instances are needed, these can be added via 'addInstance' (not needed if you only use 1 single instance). +
 2) Select the instance you want to configur via setInstance(). +
 3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage'). +
 4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor'. +
-5) Press the "Teach Mode" button within the UI. It will provide a ROI editor to select a an object and show its teached edges. Press the button again to confirm the teached structure.+
+5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.+
 6) Define the minimum valid score via 'setMinScore'. +
 7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
 {empty} +</desc>
@@ -34,17 +34,17 @@ Typically to configure this module to work with other modules you should do this
                 </event>
                 <event name="OnNewProcessingParameter">
                     <desc>Event to share processing parameters to the instances.</desc>
-                    <param desc="Number of the instance to receive the parameter." multiplicity="1" name="objectNo" type="int"/>
+                    <param desc="Numeric identifier of the instance to receive the parameter." multiplicity="1" name="objectNo" type="int"/>
                     <param desc="Name of the parameter." multiplicity="1" name="parameter" type="string"/>
                     <param desc="Value of the parameter." multiplicity="1" name="value" type="auto"/>
-                    <param desc="If parameter is for specifici internal used object, its number." multiplicity="?" name="internalObjectNo" type="int"/>
+                    <param desc="Numeric identifier, if parameter is for specific internal used object." multiplicity="?" name="internalObjectNo" type="int"/> 
                 </event>
                 <event name="OnNewSelectedInstance">
                     <desc>Notify if new instance is selected.</desc>
                     <param desc="Selected instance." multiplicity="1" name="selectedObject" type="int"/>
                 </event>
                 <event name="OnDataLoadedOnReboot">
-                    <desc>Event to call if module tried to load parameters and should be ready.</desc>
+                    <desc>Event to call after module loaded parameters and is ready.</desc>
                 </event>
                 <event name="OnNewParameterName">
                     <desc>Notify name of persistent data parameter.</desc>
@@ -68,15 +68,15 @@ Typically to configure this module to work with other modules you should do this
                 </event>
                 <event name="OnNewValueUpdateNUM">
                     <desc>Example of dynamically created event to sync paramters between instance threads and Controller part of module. +
-NUM will be replaced by the number of instance (e.g. "OnNewValueUpdate1"). +</desc>
-                    <param desc="Instance new value is coming from." multiplicity="1" name="instance" type="int"/>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewValueUpdate1"). +</desc>
+                    <param desc="Instance the new value is coming from." multiplicity="1" name="instance" type="int"/>
                     <param desc="Name of the paramter to update/sync." multiplicity="1" name="parameter" type="string"/>
                     <param desc="Value to update." multiplicity="1" name="value" type="auto"/>
-                    <param desc="Optionally if internal parameter should be used for internal objects." multiplicity="?" name="selectedObject" type="int"/>
+                    <param desc="Optional: If internal parameter should be used for internal objects." multiplicity="?" name="selectedObject" type="int"/>
                 </event>
                 <event name="OnNewValueToForwardNUM">
                     <desc>Example of dynamically created event to forward data from instance thread to Controller part of module, e.g. to forward values to UI. +
-NUM will be replaced by the number of instance (e.g. "OnNewValueToForward1"). +</desc>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewValueToForward1"). +</desc>
                     <param desc="Eventname to use to forward value." multiplicity="1" name="eventname" type="string"/>
                     <param desc="Value to forward." multiplicity="1" name="value" type="auto"/>
                 </event>
@@ -114,14 +114,14 @@ NUM will be replaced by the number of instance (e.g. "OnNewValueToForward1"). +<
                 </event>
                 <event name="OnNewAlignedImageNUM">
                     <desc>Example of dynamically created event to provide aligned image to be used for post processing. +
-NUM will be replaced by the number of instance (e.g. "OnNewAlignedImage1"). +
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewAlignedImage1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param alias="Image" desc="Aligned image" multiplicity="1" name="image" type="object"/>
                 </event>
                 <event name="OnNewStatusMatchScoreResultNUM">
                     <desc>Notify score of match.
 Example of dynamically created event to provide score of match. +
-NUM will be replaced by the number of instance (e.g. "OnNewStatusMatchScoreResult1"). +
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusMatchScoreResult1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param desc="Score of match." multiplicity="1" name="score" type="float"/>
                 </event>
@@ -135,13 +135,13 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                 </event>
                 <event name="OnNewStatusFoundMatchesNUM">
                     <desc>Example of dynamically created event to provide result of found matches. +
-NUM will be replaced by the number of instance (e.g. "OnNewStatusFoundMatches1"). +
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusFoundMatches1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param desc="Amount of found matches." multiplicity="1" name="amount" type="int"/>
                 </event>
                 <event name="OnNewTransformationNUM">
                     <desc>Example of dynamically created event to provide transformation data to be used for post processing. +
-NUM will be replaced by the number of instance (e.g. "OnNewTransformation1"). +
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewTransformation1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param alias="Transform" desc="Transformation" multiplicity="1" name="transform" type="object"/>
                 </event>
@@ -151,7 +151,7 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                 </event>
                 <event name="OnNewStatusResultTranslateY">
                     <desc>Notify pixel to transform result in y direction.</desc>
-                    <param desc="Pixel in x direction." multiplicity="1" name="value" type="int"/>
+                    <param desc="Pixel in y direction." multiplicity="1" name="value" type="int"/>
                 </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
@@ -180,13 +180,13 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                     <return desc="Amount of created instances." multiplicity="1" name="amount" type="int"/>
                 </function>
                 <function name="setRegisterEvent">
-                    <desc>Configure event that this module should listen to. If this one is notified, it will be linked to internal processing function. +
+                    <desc>Configure event that this module should listen to. If this event is notified, it will be linked to the internal processing function. +
 (Will be set to currently active instance, see 'setSelectedObject')</desc>
                     <param desc="Event name to listen to." multiplicity="1" name="event" type="string"/>
                 </function>
                 <function name="processInstanceNUM">
                     <desc>Example of dynamically served function to process internally coded function. +
-NUM will be replaced by the number of instance (e.g. "processInstance1"). +
+NUM will be replaced by the numeric identifier of instance (e.g. "processInstance1"). +
 INFO: Other modules can check via "Script.isServedAsFunction" if function of sepecific instance exists. +
 Needs then to be called via "Script.callFunction".</desc>
                     <param alias="Image" desc="Transferred object (optional)" multiplicity="1" name="image" type="object"/>
