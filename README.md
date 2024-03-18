@@ -9,12 +9,15 @@ Module to provide 2D Image EdgeMatcher functionality to search for objects withi
 The app includes an intuitive GUI.  
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
 
+## Known issues
+- Even if found multiple matches, module will only provide the aligned image / transformation of first match
+
 ## Information
 
 Tested on:
 |Device|Firmware|Module version
 |--|--|--|
-|SICK AppEngine|V1.5.0|V0.1.0|
+|SICK AppEngine|V1.5.0|V1.0.0|
 
 This application / module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  
