@@ -5,5 +5,10 @@
   margin: 6px;
 }
 
-.myCustomCssClass_CSK_Module_MultiImageEdgeMatcher {
+.myCustomMinHeight35px_CSK_Module_MultiImageEdgeMatcher {
+  min-height: 35px;
+}
+
+.myCustomMarginLeft30px_CSK_Module_MultiImageEdgeMatcher {
+  margin-left: 30px;
 }

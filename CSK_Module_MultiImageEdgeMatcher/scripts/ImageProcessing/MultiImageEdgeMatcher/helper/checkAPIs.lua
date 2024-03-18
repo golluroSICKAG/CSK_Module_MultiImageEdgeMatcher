@@ -23,6 +23,7 @@ local function loadAPIs()
   Transform = require 'API.Transform'
   View = require 'API.View'
   View.ShapeDecoration = require 'API.View.ShapeDecoration'
+  View.TextDecoration = require 'API.View.TextDecoration'
 
   -- Check if related CSK modules are available to be used
   local appList = Engine.listApps()

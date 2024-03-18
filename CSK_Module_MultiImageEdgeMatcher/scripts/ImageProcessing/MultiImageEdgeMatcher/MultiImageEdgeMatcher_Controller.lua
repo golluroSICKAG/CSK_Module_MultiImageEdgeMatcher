@@ -36,11 +36,15 @@ Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM', 'MultiImageE
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewTransformationNUM', 'MultiImageEdgeMatcher_OnNewTransformationNUM')
 
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM', 'MultiImageEdgeMatcher_OnNewStatusFoundMatchesNUM')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatchesNUM', 'MultiImageEdgeMatcher_OnNewStatusFoundValidMatchesNUM')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM', 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResultNUM')
 ----------------------------------------------------------------
 
 -- Real events
 --------------------------------------------------
+
+
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusTought', 'MultiImageEdgeMatcher_OnNewStatusTought')
 
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent', 'MultiImageEdgeMatcher_OnNewStatusRegisteredEvent')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewViewerID', 'MultiImageEdgeMatcher_OnNewViewerID')
@@ -52,7 +56,19 @@ Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore', 'MultiIma
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor', 'MultiImageEdgeMatcher_OnNewStatusDownsampleFactor')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches', 'MultiImageEdgeMatcher_OnNewStatusMaxMatches')
 
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusBackgroundClutter', 'MultiImageEdgeMatcher_OnNewStatusBackgroundClutter')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMinimumSeparation', 'MultiImageEdgeMatcher_OnNewStatusMinimumSeparation')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusPerformFineSearch', 'MultiImageEdgeMatcher_OnNewStatusPerformFineSearch')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusRotationRange', 'MultiImageEdgeMatcher_OnNewStatusRotationRange')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusPriorRotation', 'MultiImageEdgeMatcher_OnNewStatusPriorRotation')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMinScale', 'MultiImageEdgeMatcher_OnNewStatusMinScale')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMaxScale', 'MultiImageEdgeMatcher_OnNewStatusMaxScale')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusPriorScale', 'MultiImageEdgeMatcher_OnNewStatusPriorScale')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusTileCount', 'MultiImageEdgeMatcher_OnNewStatusTileCount')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusTimeout', 'MultiImageEdgeMatcher_OnNewStatusTimeout')
+
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches', 'MultiImageEdgeMatcher_OnNewStatusFoundMatches')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches', 'MultiImageEdgeMatcher_OnNewStatusFoundValidMatches')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult', 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult')
 
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX', 'MultiImageEdgeMatcher_OnNewStatusResultTranslateX')
@@ -124,6 +140,11 @@ local function handleOnNewValueUpdate(instance, parameter, value, selectedObject
     if parameter == 'matcher' then
       local newMatcher = Object.deserialize(value, 'JSON')
       multiImageEdgeMatcher_Instances[instance].parameters.matcher = newMatcher
+    elseif parameter == 'tought' then
+      multiImageEdgeMatcher_Instances[instance].tought = value
+      if instance == selectedInstance then
+        Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTought', multiImageEdgeMatcher_Instances[selectedInstance].tought)
+      end
     end
 end
 
@@ -175,12 +196,13 @@ end
 
 --- Function to send all relevant values to UI on resume
 local function handleOnExpiredTmrMultiImageEdgeMatcher()
-  -- Script.notifyEvent("MultiImageEdgeMatcher_OnNewEvent", false)
 
   updateUserLevel()
 
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewSelectedInstance', selectedInstance)
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewInstanceList", helperFuncs.createStringListBySize(#multiImageEdgeMatcher_Instances))
+
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTought', multiImageEdgeMatcher_Instances[selectedInstance].tought)
 
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', multiImageEdgeMatcher_Instances[selectedInstance].parameters.registeredEvent)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewViewerID', 'multiImageEdgeMatcherViewer' .. tostring(selectedInstance))
@@ -192,10 +214,22 @@ local function handleOnExpiredTmrMultiImageEdgeMatcher()
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusDownsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
 
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusBackgroundClutter', multiImageEdgeMatcher_Instances[selectedInstance].parameters.backgroundClutter)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimumSeparation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minSeparation)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPerformFineSearch', multiImageEdgeMatcher_Instances[selectedInstance].parameters.fineSearch)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRotationRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorRotation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorRotationRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScaleRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxScaleRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorScale)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTileCount', multiImageEdgeMatcher_Instances[selectedInstance].parameters.tileCount)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTimeout', multiImageEdgeMatcher_Instances[selectedInstance].parameters.timeout)
+
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateX', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransX)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateY', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransY)
 
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundMatches", '0')
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundValidMatches", '0')
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusMatchScoreResult", '0.0')
 
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot", multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot)
@@ -241,6 +275,8 @@ local function addInstance()
   table.insert(multiImageEdgeMatcher_Instances, multiImageEdgeMatcher_Model.create(#multiImageEdgeMatcher_Instances+1))
   Script.deregister("CSK_MultiImageEdgeMatcher.OnNewValueToForward" .. tostring(#multiImageEdgeMatcher_Instances) , handleOnNewValueToForward)
   Script.register("CSK_MultiImageEdgeMatcher.OnNewValueToForward" .. tostring(#multiImageEdgeMatcher_Instances) , handleOnNewValueToForward)
+  Script.deregister("CSK_MultiImageEdgeMatcher.OnNewValueUpdate" .. tostring(#multiImageEdgeMatcher_Instances) , handleOnNewValueUpdate)
+  Script.register("CSK_MultiImageEdgeMatcher.OnNewValueUpdate" .. tostring(#multiImageEdgeMatcher_Instances) , handleOnNewValueUpdate)
   handleOnExpiredTmrMultiImageEdgeMatcher()
 end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.addInstance', addInstance)
@@ -280,6 +316,18 @@ local function updateProcessingParameters()
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'downsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minScore', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
+
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'backgroundClutter', multiImageEdgeMatcher_Instances[selectedInstance].parameters.backgroundClutter)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minSeparation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minSeparation)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'fineSearch', multiImageEdgeMatcher_Instances[selectedInstance].parameters.fineSearch)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'rotationRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'priorRotationRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorRotationRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minScaleRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScaleRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxScaleRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxScaleRange)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'priorScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorScale)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'tileCount', multiImageEdgeMatcher_Instances[selectedInstance].parameters.tileCount)
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'timeout', multiImageEdgeMatcher_Instances[selectedInstance].parameters.timeout)
+
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'matcher', multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher)
 
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'resultTransX', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransX)
@@ -297,6 +345,14 @@ local function setTeachMode(status)
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.setTeachMode", setTeachMode)
 
+local function unteach()
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher = Image.Matching.EdgeMatcher.create()
+  multiImageEdgeMatcher_Instances[selectedInstance].tought = false
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'unteach')
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTought', multiImageEdgeMatcher_Instances[selectedInstance].tought)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.unteach', unteach)
+
 local function setEdgeThreshold(threshold)
   _G.logger:fine(nameOfModule .. ": Set edge threshold to: " .. tostring(threshold))
   multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold = threshold
@@ -312,9 +368,13 @@ end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.setMinimumValidScore', setMinimumValidScore)
 
 local function setDownsampleFactor(factor)
-  _G.logger:fine(nameOfModule .. ": Set downsample factor to: " .. tostring(factor))
-  multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor = factor
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'downsampleFactor', factor)
+  if multiImageEdgeMatcher_Instances[selectedInstance].tought == true then
+    _G.logger:info(nameOfModule .. ": To set downsample factor, first unteach edge matcher.")
+  else
+    _G.logger:fine(nameOfModule .. ": Set downsample factor to: " .. tostring(factor))
+    multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor = factor
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'downsampleFactor', factor)
+  end
 end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.setDownsampleFactor', setDownsampleFactor)
 
@@ -324,6 +384,80 @@ local function setMaximumMatches(max)
   Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxMatches', max)
 end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.setMaximumMatches', setMaximumMatches)
+
+local function setBackgroundClutter(level)
+  if multiImageEdgeMatcher_Instances[selectedInstance].tought == true then
+    _G.logger:info(nameOfModule .. ": To set background clutter level, first unteach edge matcher.")
+  else
+    _G.logger:fine(nameOfModule .. ": Set background clutter level: " .. tostring(level))
+    multiImageEdgeMatcher_Instances[selectedInstance].parameters.backgroundClutter = level
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'backgroundClutter', level)
+  end
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setBackgroundClutter', setBackgroundClutter)
+
+local function setMinSeparation(minSeparation)
+  _G.logger:fine(nameOfModule .. ": Set minimum separation: " .. tostring(minSeparation))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.minSeparation = minSeparation
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minSeparation', minSeparation)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setMinSeparation', setMinSeparation)
+
+local function setFineSearch(status)
+  _G.logger:fine(nameOfModule .. ": Set status to perform fine search: " .. tostring(status))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.fineSearch = status
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'fineSearch', status)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setFineSearch', setFineSearch)
+
+local function setRotationRange(range)
+  _G.logger:fine(nameOfModule .. ": Set rotation range: " .. tostring(range))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange = range
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'rotationRange', range)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setRotationRange', setRotationRange)
+
+local function setPriorRotation(orientation)
+  _G.logger:fine(nameOfModule .. ": Set prior rotation range: " .. tostring(orientation))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange = orientation
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'rotationRange', orientation)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setPriorRotation', setPriorRotation)
+
+local function setMinScale(value)
+  _G.logger:fine(nameOfModule .. ": Set minimum of scale range: " .. tostring(value))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScaleRange = value
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'minScaleRange', value)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setMinScale', setMinScale)
+
+local function setMaxScale(value)
+  _G.logger:fine(nameOfModule .. ": Set maximum of scale range: " .. tostring(value))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxScaleRange = value
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'maxScaleRange', value)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setMaxScale', setMaxScale)
+
+local function setPriorScale(value)
+  _G.logger:fine(nameOfModule .. ": Set prior scale range: " .. tostring(value))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorScale = value
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'priorScale', value)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setPriorScale', setPriorScale)
+
+local function setTileCount(value)
+  _G.logger:fine(nameOfModule .. ": Set tile count: " .. tostring(value))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.tileCount = value
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'tileCount', value)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setTileCount', setTileCount)
+
+local function setTimeout(value)
+  _G.logger:fine(nameOfModule .. ": Set timeout: " .. tostring(value))
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.timeout = value
+  Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'timeout', value)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setTimeout', setTimeout)
 
 local function setResultTransX(value)
   _G.logger:fine(nameOfModule .. ": Set resultTransX to: " .. tostring(value))

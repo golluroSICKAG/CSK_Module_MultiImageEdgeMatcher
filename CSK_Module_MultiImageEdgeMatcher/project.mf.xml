@@ -14,11 +14,18 @@ Typically to configure this module to work with other modules you should do this
 1) If multiple instances are needed, these can be added via 'addInstance' (not needed if you only use 1 single instance). +
 2) Select the instance you want to configur via setInstance(). +
 3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage'). +
-4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor'. +
+4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor', ... (check other 'set....' function as well..). +
+INFO: Regarding further details of the EdgeMatcher parameters please read the AppSpace API documentation. +
 5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.+
 6) Define the minimum valid score via 'setMinScore'. +
 7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
 {empty} +</desc>
+            <enum name="BackgroundClutterLevel" trait="released">
+                <desc>Background clutter level.</desc>
+                <item desc="Set if image contains a lot of other edges, structures, noise, clutter in areas not belonging to the object of interest (like barcodes and text which generate a lot of edge responses)." name="HIGH">HIGH</item>
+                <item desc="Set for clean scenes to gain speed." name="MEDIUM">MEDIUM</item>
+                <item desc="Set for clean scenes to gain speed." name="LOW">LOW</item>
+            </enum>
             <serves>
                 <event name="OnNewStatusLoadParameterOnReboot">
                     <desc>Notify status if parameters should be loaded on app/device boot up.</desc>
@@ -36,8 +43,8 @@ Typically to configure this module to work with other modules you should do this
                     <desc>Event to share processing parameters to the instances.</desc>
                     <param desc="Numeric identifier of the instance to receive the parameter." multiplicity="1" name="objectNo" type="int"/>
                     <param desc="Name of the parameter." multiplicity="1" name="parameter" type="string"/>
-                    <param desc="Value of the parameter." multiplicity="1" name="value" type="auto"/>
-                    <param desc="Numeric identifier, if parameter is for specific internal used object." multiplicity="?" name="internalObjectNo" type="int"/> 
+                    <param desc="Value of the parameter." multiplicity="?" name="value" type="auto"/>
+                    <param desc="Numeric identifier, if parameter is for specific internal used object." multiplicity="?" name="internalObjectNo" type="int"/>
                 </event>
                 <event name="OnNewSelectedInstance">
                     <desc>Notify if new instance is selected.</desc>
@@ -123,7 +130,7 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
 Example of dynamically created event to provide score of match. +
 NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusMatchScoreResult1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
-                    <param desc="Score of match." multiplicity="1" name="score" type="float"/>
+                    <param desc="Scores of matches." multiplicity="*" name="score" type="float"/>
                 </event>
                 <event name="OnNewStatusMatchScoreResult">
                     <desc>Notify score of found match of currently selected EdgeMatcher instance.</desc>
@@ -152,6 +159,60 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                 <event name="OnNewStatusResultTranslateY">
                     <desc>Notify pixel to transform result in y direction.</desc>
                     <param desc="Pixel in y direction." multiplicity="1" name="value" type="int"/>
+                </event>
+                <event name="OnNewStatusFoundValidMatches">
+                    <desc>Notify amount of found matches with valid score of currently selected EdgeMatcher instance.</desc>
+                    <param desc="Amount of found matches." multiplicity="1" name="amount" type="string"/>
+                </event>
+                <event name="OnNewStatusFoundValidMatchesNUM">
+                    <desc>Example of dynamically created event to provide result of found matches with valid score. +
+NUM will be replaced by the number of instance (e.g. "OnNewStatusFoundValidMatches1"). +
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
+                    <param desc="Amount of found matches with valid score." multiplicity="1" name="amount" type="int"/>
+                </event>
+                <event name="OnNewStatusTought">
+                    <desc>Notify if matcher was teached already.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusBackgroundClutter">
+                    <desc>Notify background clutter level.</desc>
+                    <param desc="Background clutter level." multiplicity="1" name="level" type="string"/>
+                </event>
+                <event name="OnNewStatusMinimumSeparation">
+                    <desc>Notify minimum separation between the center of object matches.</desc>
+                    <param desc="The minimum separation between the centers of two objects in image world units." multiplicity="1" name="minSeparation" type="float"/>
+                </event>
+                <event name="OnNewStatusPerformFineSearch">
+                    <desc>Notify if the fine search should be perfromed.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
+                <event name="OnNewStatusRotationRange">
+                    <desc>Notify angle in degree, the maximum deviation from the original object orientation to search for.</desc>
+                    <param desc="Angle in degree." multiplicity="1" name="angle" type="float"/>
+                </event>
+                <event name="OnNewStatusPriorRotation">
+                    <desc>Notify prior orientation for rotation range.</desc>
+                    <param desc="Prior orientation in degree." multiplicity="1" name="priorRotation" type="float"/>
+                </event>
+                <event name="OnNewStatusMinScale">
+                    <desc>Notify smallest scale factor to search for.</desc>
+                    <param desc="Lower limit is 0.8. Default value is 1.0" multiplicity="1" name="minScale" type="float"/>
+                </event>
+                <event name="OnNewStatusMaxScale">
+                    <desc>Notify largest scale factor to search for.</desc>
+                    <param desc="Upper limit is 1.2. Default value is 1.0." multiplicity="1" name="maxScale" type="float"/>
+                </event>
+                <event name="OnNewStatusPriorScale">
+                    <desc>Notfiy prior scale factor for scale ranger.</desc>
+                    <param desc="Min: 0.1. Max: 10" multiplicity="1" name="priorScale" type="float"/>
+                </event>
+                <event name="OnNewStatusTileCount">
+                    <desc>Notify how many tile images the match image should be splitted into.</desc>
+                    <param desc="Number of tile images to split into." multiplicity="1" name="tileCount" type="int"/>
+                </event>
+                <event name="OnNewStatusTimeout">
+                    <desc>Notify time in seconds after which the match algorithm should abort.</desc>
+                    <param desc="Time in seconds after which the algorithm should abort." multiplicity="1" name="timeoutSeconds" type="float"/>
                 </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
@@ -234,10 +295,53 @@ Setting this parameter will invalidate any previous teach call!</desc>
                     <desc>Function to set image translation in y direction added to found object position.</desc>
                     <param desc="Pixel in y direction." multiplicity="1" name="value" type="int"/>
                 </function>
+                <function name="unteach">
+                    <desc>Function to unteach matcher.</desc>
+                </function>
+                <function name="setBackgroundClutter">
+                    <desc>Function to set background clutter level.</desc>
+                    <param desc="Expected background clutter level." multiplicity="1" name="level" ref="CSK_MultiImageEdgeMatcher.BackgroundClutterLevel" type="enum"/>
+                </function>
+                <function name="setMinSeparation">
+                    <desc>Function to set the minimum separation between the centers of object matches.</desc>
+                    <param desc="The minimum separation between the centers of two objects in image world units. The default value is 50." multiplicity="1" name="minSeparation" type="float"/>
+                </function>
+                <function name="setFineSearch">
+                    <desc>Function to set status if fine search should be performed.</desc>
+                    <param desc="Default is true." multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="setRotationRange">
+                    <desc>Function to set rotation interval to search in relative to the teach orientation.</desc>
+                    <param desc="Angle in degree unit, the maximum deviation from the original object orientation to search for. The default value is 180 degrees, i.e., full rotation." multiplicity="1" name="range" type="float"/>
+                </function>
+                <function name="setPriorRotation">
+                    <desc>Function to set prior orientation for rotation interval (see TODO).</desc>
+                    <param desc="Prior orientation in degrees. The orientation search range is centered around this orientation. Default is zero (i.e. same orientation as teach object)." multiplicity="1" name="orientation" type="float"/>
+                </function>
+                <function name="setMinScale">
+                    <desc>Function to set minimum of scale interval to search relative to the teach size.</desc>
+                    <param desc="The smallest scale factor to search for. Lower limit is 0.8. Default value is 1.0." multiplicity="1" name="value" type="float"/>
+                </function>
+                <function name="setMaxScale">
+                    <desc>Function to set maximum of scale interval to search relative to the teach size.</desc>
+                    <param desc="The largest scale factor to search for. Upper limit is 1.2. Default value is 1.0." multiplicity="1" name="value" type="float"/>
+                </function>
+                <function name="setPriorScale">
+                    <desc>Function to set prior scale factor of scale interval to search relative to the teach size.</desc>
+                    <param desc="Set to the expected scale of the object to find, relative to the size of the teach object. E.g. 1.25 if the object to find is 25% larger than the teach object. Min: 0.1. Max: 10" multiplicity="1" name="value" type="float"/>
+                </function>
+                <function name="setTileCount">
+                    <desc>Function to set into how many tile images the match image should be splitted into.</desc>
+                    <param desc="Number of tile images to split into. 0 gives automatic selection. 1 disables tiling. Default: 0." multiplicity="1" name="value" type="int"/>
+                </function>
+                <function name="setTimeout">
+                    <desc>Function to set the time the match call should abort if time exceeds.</desc>
+                    <param desc="Time in seconds after which the algorithm should abort. The default value is 5 seconds." multiplicity="1" name="value" type="float"/>
+                </function>
             </serves>
         </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">0.1.0</meta>
+        <meta key="version">1.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>

@@ -22,19 +22,17 @@ local lastQueueSize = nil -- Size of queue
 
 local imageID = 'Image' -- image ID for viewer
 local roiID = 'ROI' -- ID of ROI in viewer
-local matcherID = 'matcherID'
 local roiEditorActive = false -- is ROI editor in viewer active
 local installedEditorIconic = nil -- is editor in viewer installed on an object like pipette, ROI, mask
 
 local decorationOK = View.ShapeDecoration.create()
-decorationOK:setFillColor(0, 127, 195, 50)
+decorationOK:setFillColor(0, 127, 195, 100)
 decorationOK:setLineWidth(3)
 
 local tought = false
 
 local centerX_ROI = 100.0 -- xPos of ROI
 local centerY_ROI = 100.0 -- yPos of ROI
-local radius_ROI = 100.0 -- radius of ROI if circle
 local width_ROI = 100.0 -- width of ROI
 local height_ROI = 100.0 -- height of ROI
 local center_ROI = Point.create(centerX_ROI, centerY_ROI) -- centerPoint of ROI
@@ -42,8 +40,10 @@ local roi = Shape.createRectangle(center_ROI, width_ROI, height_ROI) -- ROI itse
 
 -- Event to notify amount of found matches
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewStatusFoundMatches" .. multiImageEdgeMatcherInstanceNumberString, 'int')
+-- Event to notify amount of found matches with valid score
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewStatusFoundValidMatches" .. multiImageEdgeMatcherInstanceNumberString, 'int')
 -- Event to notify score of match.
-Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewStatusMatchScoreResult" .. multiImageEdgeMatcherInstanceNumberString, 'float')
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewStatusMatchScoreResult" .. multiImageEdgeMatcherInstanceNumberString, 'float:*')
 
 -- Event to forward content from this thread to Controller to show e.g. on UI
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewValueToForward".. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'string, auto')
@@ -58,7 +58,7 @@ Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewTransformation" .. multiImageE
 
 local processingParams = {}
 processingParams.matcher = Image.Matching.EdgeMatcher.create() -- EdgeMatcher
---processingParams.matcher:setProcessingUnit('CPU') -- currently not supported, future improvement
+processingParams.matcher:setProcessingUnit('CPU')
 processingParams.registeredEvent = scriptParams:get('registeredEvent')
 processingParams.activeInUI = false
 processingParams.showImage = scriptParams:get('showImage')
@@ -68,9 +68,28 @@ processingParams.minScore = scriptParams:get('minScore')
 processingParams.downsampleFactor = scriptParams:get('downsampleFactor')
 processingParams.maxMatches = scriptParams:get('maxMatches')
 
+processingParams.backgroundClutter = scriptParams:get('backgroundClutter') -- makes invalid
+processingParams.minSeparation = scriptParams:get('minSeparation')
+processingParams.fineSearch = scriptParams:get('fineSearch')
+processingParams.rotationRange = scriptParams:get('rotationRange')
+processingParams.priorRotationRange = scriptParams:get('priorRotationRange')
+processingParams.minScaleRange = scriptParams:get('minScaleRange')
+processingParams.maxScaleRange = scriptParams:get('maxScaleRange')
+processingParams.priorScale = scriptParams:get('priorScale')
+processingParams.tileCount = scriptParams:get('tileCount')
+processingParams.timeout = scriptParams:get('timeout')
+
 processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
 processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
 processingParams.matcher:setMaxMatches(processingParams.maxMatches)
+processingParams.matcher:setBackgroundClutter(processingParams.backgroundClutter)
+processingParams.matcher:setMinSeparation(processingParams.minSeparation)
+processingParams.matcher:setPerformFineSearch(processingParams.fineSearch)
+processingParams.matcher:setMinSeparation(processingParams.minSeparation)
+processingParams.matcher:setRotationRange(processingParams.rotationRange*(math.pi/180), processingParams.priorRotationRange*(math.pi/180))
+processingParams.matcher:setScaleRange(processingParams.minScaleRange, processingParams.maxScaleRange, processingParams.priorScale)
+processingParams.matcher:setTileCount(processingParams.tileCount)
+processingParams.matcher:setTimeout(processingParams.timeout)
 
 processingParams.resultTransX = scriptParams:get('resultTransX')
 processingParams.resultTransY = scriptParams:get('resultTransY')
@@ -92,7 +111,7 @@ local function teachEdgeMatcher(img)
   -- Check if wanted downsample factor is supported by device
   local minDsf,_ = processingParams.matcher:getDownsampleFactorLimits(img)
   if (minDsf > processingParams.downsampleFactor) then
-    _G.logger:warning("Cannot use downsample factor " .. wantedDownsampleFactor .. " will use " .. minDsf .. " instead")
+    _G.logger:info("Cannot use downsample factor " .. wantedDownsampleFactor .. " will use " .. minDsf .. " instead")
     processingParams.downsampleFactor = minDsf
     processingParams.matcher:setDownsampleFactor(minDsf)
   end
@@ -107,20 +126,12 @@ local function teachEdgeMatcher(img)
     Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueUpdate" .. multiImageEdgeMatcherInstanceNumberString, multiImageEdgeMatcherInstanceNumber, 'matcher', serMatcher)
 
     -- Viewing model points overlayed in teach image
-    -- DEPRECATED
-    --[[
-    local modelPoints = processingParams.matcher:getModelPoints() -- Model points in model's local coord syst
-    local teachPoints = Point.transform(modelPoints, teachPose)
-    for _, point in ipairs(teachPoints) do
-      viewer:addShape(point, decoration, nil, imageID)
-    end
-    ]]
-
     local modelContour = processingParams.matcher:getModelContours() -- Model contour in model's local coord syst
+
     local teachContour = Shape.transform(modelContour, teachPose)
 
     for _, point in ipairs(teachContour) do
-      viewer:addShape(point, decoration, nil, imageID)
+      viewer:addShape(point, decorationOK, nil, imageID)
     end
 
     viewer:present()
@@ -128,7 +139,6 @@ local function teachEdgeMatcher(img)
     _G.logger:warning(nameOfModule .. ": Edge Matcher teaching not succesfull.")
     tought = false
   end
-
 end
 
 local function handleOnNewProcessing(image)
@@ -139,8 +149,8 @@ local function handleOnNewProcessing(image)
   if roiEditorActive == true then
     if installedEditorIconic == nil then
       viewer:clear()
-      local parentID = viewer:addImage(image, nil, imageID)
-      viewer:addShape(roi, decorationOK, roiID, parentID)
+      local parentEditorID = viewer:addImage(image, nil, imageID)
+      viewer:addShape(roi, decorationOK, roiID, parentEditorID)
       viewer:installEditor(roiID)
       installedEditorIconic = roiID
       viewer:present()
@@ -166,9 +176,10 @@ local function handleOnNewProcessing(image)
   else
   ]]
 
+  local parentID
   if processingParams.showImage and processingParams.activeInUI then
     viewer:clear()
-    local parentID = viewer:addImage(image)
+    parentID = viewer:addImage(image)
   end
 
   if tought then
@@ -177,34 +188,56 @@ local function handleOnNewProcessing(image)
     local poses, scores = processingParams.matcher:match(image)
 
     if poses then
+      -- Finding index of first match with score less than minimum score
+      local validScores = 0 -- Valid object counter
+      local scoreList = '' -- List of scores
+      for k = 1, #scores do
+        if k == 1 then
+          scoreList = scoreList .. string.format('%.2f',scores[k])
+        else
+          scoreList = scoreList .. ', ' .. string.format('%.2f',scores[k])
+        end
+        if scores[k] >= processingParams.minScore then
+          validScores = validScores + 1
+        end
+      end
+
       Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusFoundMatches' .. multiImageEdgeMatcherInstanceNumberString, #poses)
-      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMatchScoreResult' .. multiImageEdgeMatcherInstanceNumberString, scores[1])
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusFoundValidMatches' .. multiImageEdgeMatcherInstanceNumberString, validScores)
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMatchScoreResult' .. multiImageEdgeMatcherInstanceNumberString, scores)
 
       if processingParams['activeInUI'] then
         Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusFoundMatches', tostring(#poses))
-        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult', tostring(scores[1]))
+        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusFoundValidMatches', tostring(validScores))
+        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult', tostring(scoreList))
       end
     else
       Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusFoundMatches' .. multiImageEdgeMatcherInstanceNumberString, 0)
-      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMatchScoreResult' .. multiImageEdgeMatcherInstanceNumberString, 0.0)
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusFoundValidMatches' .. multiImageEdgeMatcherInstanceNumberString, 0)
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMatchScoreResult' .. multiImageEdgeMatcherInstanceNumberString, nil)
 
       if processingParams['activeInUI'] then
         Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusFoundMatches', '0')
-        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult', '0.0')
+        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusFoundValidMatches', '0')
+        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueToForward" .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewStatusMatchScoreResult', '-')
       end
     end
-
-    -- Finding index of first match with score less than minimum score
-    local validScores = 0 -- Valid object counter
 
     -- Visualizing found objects
     for j = 1, #scores do
       if scores[j] >= processingParams.minScore then
         local outlines = Shape.transform(processingParams.matcher:getModelContours(), poses[j])
-        for _, outline in ipairs(outlines) do
-          viewer:addShape(outline, decoration, nil, parentID)
+        if processingParams.showImage and processingParams.activeInUI then
+          for _, outline in ipairs(outlines) do
+            viewer:addShape(outline, decorationOK, nil, parentID)
+            local _, xTrans, yTrans = Transform.decomposeRigid2D(poses[j])
+            local textDeco = View.TextDecoration.create()
+            textDeco:setPosition(xTrans, yTrans)
+            textDeco:setColor(0, 255, 0, 255)
+            textDeco:setSize(15)
+            viewer:addText('No.' .. tostring(j) .. ', Score:' .. string.format('%.2f',scores[j]), textDeco, nil, parentID)
+          end
         end
-        validScores = validScores + 1
 
         if j == 1 then
           local transPose = poses[j]:invert()
@@ -278,6 +311,24 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
     elseif parameter == 'cancelEditors' then
       roiEditorActive = false
 
+    elseif parameter == 'unteach' then
+      processingParams.matcher = Image.Matching.EdgeMatcher.create()
+      processingParams.matcher:setProcessingUnit('CPU')
+      processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
+      processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
+      processingParams.matcher:setBackgroundClutter(processingParams.backgroundClutter)
+      processingParams.matcher:setMaxMatches(processingParams.maxMatches)
+      processingParams.matcher:setBackgroundClutter(processingParams.backgroundClutter)
+      processingParams.matcher:setMinSeparation(processingParams.minSeparation)
+      processingParams.matcher:setPerformFineSearch(processingParams.minSeparation)
+      processingParams.matcher:setMinSeparation(processingParams.fineSearch)
+      processingParams.matcher:setRotationRange(processingParams.rotationRange*(math.pi/180), processingParams.priorRotationRange*(math.pi/180))
+      processingParams.matcher:setScaleRange(processingParams.minScaleRange, processingParams.maxScaleRange, processingParams.priorScale)
+      processingParams.matcher:setTileCount(processingParams.tileCount)
+      processingParams.matcher:setTimeout(processingParams.timeout)
+
+      tought = false
+
     elseif parameter == 'roiEditorActive' then
       roiEditorActive = value
       if value == true then
@@ -289,6 +340,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
           viewer:clear()
           viewer:present('LIVE')
         end
+        Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueUpdate" .. multiImageEdgeMatcherInstanceNumberString, multiImageEdgeMatcherInstanceNumber, 'tought', tought)
       end
 
     elseif parameter == 'matcher' then
@@ -302,6 +354,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
       else
         tought = false
       end
+      Script.notifyEvent("MultiImageEdgeMatcher_OnNewValueUpdate" .. multiImageEdgeMatcherInstanceNumberString, multiImageEdgeMatcherInstanceNumber, 'tought', tought)
 
     else
       processingParams[parameter] = value
@@ -309,9 +362,23 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
         processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
       elseif parameter == 'downsampleFactor' then
         processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
-        tought = false
       elseif parameter == 'maxMatches' then
         processingParams.matcher:setMaxMatches(processingParams.maxMatches)
+      elseif parameter == 'backgroundClutter' then
+        processingParams.matcher:setBackgroundClutter(processingParams.backgroundClutter)
+      elseif parameter == 'minSeparation' then
+        processingParams.matcher:setMinSeparation(processingParams.minSeparation)
+      elseif parameter == 'fineSearch' then
+        processingParams.matcher:setPerformFineSearch(processingParams.fineSearch)
+        processingParams.matcher:setMaxMatches(processingParams.maxMatches)
+      elseif parameter == 'rotationRange' or parameter == 'priorRotationRange' then
+        processingParams.matcher:setRotationRange(processingParams.rotationRange*(math.pi/180), processingParams.priorRotationRange*(math.pi/180))
+      elseif parameter == 'minScaleRange' or  parameter == 'maxScaleRange' or  parameter == 'priorScale' then
+        processingParams.matcher:setScaleRange(processingParams.minScaleRange, processingParams.maxScaleRange, processingParams.priorScale)
+      elseif parameter == 'tileCount' then
+        processingParams.matcher:setTileCount(processingParams.tileCount)
+      elseif parameter == 'timeout' then
+        processingParams.matcher:setTimeout(processingParams.timeout)
       end
       if  parameter == 'showImage' and value == false then
         viewer:clear()
