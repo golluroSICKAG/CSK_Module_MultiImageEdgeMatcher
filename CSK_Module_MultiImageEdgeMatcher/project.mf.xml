@@ -16,9 +16,9 @@ Typically to configure this module to work with other modules you should do this
 3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage'). +
 4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor', ... (check other 'set....' function as well..). +
 INFO: Regarding further details of the EdgeMatcher parameters please read the AppSpace API documentation. +
-5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.+
+5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure. +
 6) Define the minimum valid score via 'setMinScore'. +
-7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
+7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM' /  'CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM' to  receive the processing result values. +
 {empty} +</desc>
             <enum name="BackgroundClutterLevel" trait="released">
                 <desc>Background clutter level.</desc>
