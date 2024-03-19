@@ -619,7 +619,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <div class="details">
 <span id="author" class="author">SICK AG</span><br>
 <span id="revnumber">version 1.0.0,</span>
-<span id="revdate">2024-03-18</span>
+<span id="revdate">2024-03-19</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -748,7 +748,7 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Date</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2024-03-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024-03-19</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Author</p></th>
@@ -802,9 +802,9 @@ Typically to configure this module to work with other modules you should do this
 3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage').<br>
 4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor', &#8230;&#8203; (check other 'set&#8230;&#8203;.' function as well..).<br>
 INFO: Regarding further details of the EdgeMatcher parameters please read the AppSpace API documentation.<br>
-5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.+
+5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.<br>
 6) Define the minimum valid score via 'setMinScore'.<br>
-7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'OnNewStatusFoundMatchesNUM' /  'OnNewStatusMatchScoreResultNUM' to  receive the processing result values.<br>
+7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM' /  'CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM' to  receive the processing result values.<br>
 <br></p>
 </div>
 </div>
@@ -4369,7 +4369,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0<br>
-Last updated 2024-03-18 15:56:59 +0100
+Last updated 2024-03-19 12:57:50 +0100
 </div>
 </div>
 <script type="text/javascript">

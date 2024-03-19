@@ -230,7 +230,13 @@ local function handleOnNewProcessing(image)
         if processingParams.showImage and processingParams.activeInUI then
           for _, outline in ipairs(outlines) do
             viewer:addShape(outline, decorationOK, nil, parentID)
-            local _, xTrans, yTrans = Transform.decomposeRigid2D(poses[j])
+            local currentPose
+            if Transform.getType(poses[j]) == 'SIMILARITY' then
+              _, currentPose = Transform.decomposeSimilarity2D(poses[j])
+            else
+              currentPose = poses[j]
+            end
+            local _, xTrans, yTrans = Transform.decomposeRigid2D(currentPose)
             local textDeco = View.TextDecoration.create()
             textDeco:setPosition(xTrans, yTrans)
             textDeco:setColor(0, 255, 0, 255)

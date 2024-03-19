@@ -10,7 +10,8 @@ The app includes an intuitive GUI.
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
 
 ## Known issues
-- Even if found multiple matches, module will only provide the aligned image / transformation of first match
+- Even if found multiple matches, module will only provide the aligned image / transformation of first match  
+- Limited to CPU processing unit (no FPGA support)  
 
 ## Information
 
