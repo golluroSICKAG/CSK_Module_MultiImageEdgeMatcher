@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="author" content="SICK AG">
-<title>Documentation - CSK_Module_MultiImageEdgeMatcher 0.1.0</title>
+<title>Documentation - CSK_Module_MultiImageEdgeMatcher 1.0.0</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 /* Stylesheet for CodeRay to match GitHub theme | MIT License | http://foundation.zurb.com */
@@ -615,11 +615,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>Documentation - CSK_Module_MultiImageEdgeMatcher 0.1.0</h1>
+<h1>Documentation - CSK_Module_MultiImageEdgeMatcher 1.0.0</h1>
 <div class="details">
 <span id="author" class="author">SICK AG</span><br>
-<span id="revnumber">version 0.1.0,</span>
-<span id="revdate">2023-08-16</span>
+<span id="revnumber">version 1.0.0,</span>
+<span id="revdate">2024-03-19</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -645,25 +645,71 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.processInstanceNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">processInstanceNUM()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.resetInstances"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">resetInstances()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.sendParameters"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">sendParameters()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setBackgroundClutter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setBackgroundClutter()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setDownsampleFactor"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setDownsampleFactor()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setEdgeThreshold"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setEdgeThreshold()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setFineSearch"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setFineSearch()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setLoadOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setLoadOnReboot()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMaximumMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMaximumMatches()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMaxScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMaxScale()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinimumValidScore"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinimumValidScore()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinScale()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinSeparation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinSeparation()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setParameterName"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setParameterName()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setPriorRotation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setPriorRotation()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setPriorScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setPriorScale()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setRegisterEvent"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setRegisterEvent()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setResultTransX"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setResultTransX()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setResultTransY"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setResultTransY()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setRotationRange"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setRotationRange()</span></a></li>
 <li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setSelectedInstance"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setSelectedInstance()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setShowImage"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setShowImage()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTeachMode"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTeachMode()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTileCount"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTileCount()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTimeout"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTimeout()</span></a></li>
+<li><a href="#API:Function:CSK_MultiImageEdgeMatcher.unteach"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">unteach()</span></a></li>
 </ul>
 </li>
 <li><a href="#_events">Events</a>
 <ul class="sectlevel4">
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnDataLoadedOnReboot</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewAlignedImageNUM</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewInstanceList"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewInstanceList</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewParameterName"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewParameterName</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewProcessingParameter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewProcessingParameter</span></a></li>
-<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewResult"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewResult</span></a></li>
-<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewResultNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewResultNUM</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewSelectedInstance"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewSelectedInstance</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusBackgroundClutter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusBackgroundClutter</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusDownsampleFactor</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusEdgeThreshold"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusEdgeThreshold</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundMatches</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundMatchesNUM</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundValidMatches</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatchesNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundValidMatchesNUM</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMatchScoreResult</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMatchScoreResultNUM</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMaxMatches</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMaxScale</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinimalScore</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimumSeparation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinimumSeparation</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinScale</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPerformFineSearch"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPerformFineSearch</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorRotation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPriorRotation</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPriorScale</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusRegisteredEvent</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusResultTranslateX</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateY"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusResultTranslateY</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRotationRange"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusRotationRange</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusShowImage"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusShowImage</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTileCount"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTileCount</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTimeout"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTimeout</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTought"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTought</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewTransformationNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewTransformationNUM</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewValueToForwardNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewValueToForwardNUM</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewValueUpdateNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewValueUpdateNUM</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewViewerID"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewViewerID</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnPersistentDataModuleAvailable</span></a></li>
+<li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnROIEditorActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnROIEditorActive</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelAdminActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelAdminActive</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelMaintenanceActive</span></a></li>
 <li><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelOperatorActive</span></a></li>
@@ -672,6 +718,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#_enumerations">Enumerations</a>
+<ul class="sectlevel2">
+<li><a href="#API:Enum:CSK_MultiImageEdgeMatcher.BackgroundClutterLevel"><span class="api-enum">CSK_MultiImageEdgeMatcher.BackgroundClutterLevel</span></a></li>
 </ul>
 </li>
 </ul>
@@ -693,11 +744,11 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Version</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.1.0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Date</p></th>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2023-08-16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2024-03-19</p></td>
 </tr>
 <tr>
 <th class="tableblock halign-left valign-top"><p class="tableblock">Author</p></th>
@@ -741,15 +792,20 @@ h1,h2,h3,h4,h5,h6{color:#007cc1}
 <div class="sect3">
 <h4 id="_short_description_2">Short description</h4>
 <div class="paragraph">
-<p>Please fill in information regarding: What is the idea of this module and its features?<br>
-How to use this module in general&#8230;&#8203;. like:<br>
+<p>Module to provide EdgeMatcher functionality. Multiple instances can be created and will run in multiple threads on the device.<br>
+This module provides a UI for all relevant features.<br>
 <br>
-Typically the features of this module are used like this (check also main script of this module):<br>
+Typically to configure this module to work with other modules you should do this:<br>
 <br>
-<strong>1) Setup</strong><br>
-ToDo<br>
-<br>
-<strong>2) Something else&#8230;&#8203;.</strong><br></p>
+1) If multiple instances are needed, these can be added via 'addInstance' (not needed if you only use 1 single instance).<br>
+2) Select the instance you want to configur via setInstance().<br>
+3) Set the event providing the images to be processed e.g. via setRegisterEvent('CSK_ImagePlayer.OnNewImage').<br>
+4) Optionally edit EdgeMatcher parameters via 'setEdgeThreshold', 'setMaximumMatches', 'setDownsampleFactor', &#8230;&#8203; (check other 'set&#8230;&#8203;.' function as well..).<br>
+INFO: Regarding further details of the EdgeMatcher parameters please read the AppSpace API documentation.<br>
+5) Press the "Teach Mode" button within the UI. It will provide a ROI (Region of interest) editor to select an object and show its tought edges. Press the button again to confirm the tought structure.<br>
+6) Define the minimum valid score via 'setMinScore'.<br>
+7) The module will align the image in relation to the first found object. Other modules can register on the 'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[NUM]' event to receive the aligned image for further processing, on the 'CSK_MultiImageEdgeMatcher.OnNewTransformation[NUM]' event to receive the transformation itself or on 'CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM' /  'CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM' to  receive the processing result values.<br>
+<br></p>
 </div>
 </div>
 <div class="sect3">
@@ -778,19 +834,79 @@ ToDo<br>
 <p><a href="#API:Function:CSK_MultiImageEdgeMatcher.sendParameters">sendParameters()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setBackgroundClutter">setBackgroundClutter()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setDownsampleFactor">setDownsampleFactor()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setEdgeThreshold">setEdgeThreshold()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setFineSearch">setFineSearch()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setLoadOnReboot">setLoadOnReboot()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMaximumMatches">setMaximumMatches()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMaxScale">setMaxScale()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinimumValidScore">setMinimumValidScore()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinScale">setMinScale()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setMinSeparation">setMinSeparation()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setParameterName">setParameterName()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setPriorRotation">setPriorRotation()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setPriorScale">setPriorScale()</a></p>
+</li>
+<li>
 <p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setRegisterEvent">setRegisterEvent()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setResultTransX">setResultTransX()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setResultTransY">setResultTransY()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setRotationRange">setRotationRange()</a></p>
 </li>
 <li>
 <p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setSelectedInstance">setSelectedInstance()</a></p>
 </li>
 <li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setShowImage">setShowImage()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTeachMode">setTeachMode()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTileCount">setTileCount()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.setTimeout">setTimeout()</a></p>
+</li>
+<li>
+<p><a href="#API:Function:CSK_MultiImageEdgeMatcher.unteach">unteach()</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot">OnDataLoadedOnReboot</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM">OnNewAlignedImageNUM</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewInstanceList">OnNewInstanceList</a></p>
@@ -802,16 +918,88 @@ ToDo<br>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewProcessingParameter">OnNewProcessingParameter</a></p>
 </li>
 <li>
-<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewResult">OnNewResult</a></p>
-</li>
-<li>
-<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewResultNUM">OnNewResultNUM</a></p>
-</li>
-<li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewSelectedInstance">OnNewSelectedInstance</a></p>
 </li>
 <li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusBackgroundClutter">OnNewStatusBackgroundClutter</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor">OnNewStatusDownsampleFactor</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusEdgeThreshold">OnNewStatusEdgeThreshold</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches">OnNewStatusFoundMatches</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM">OnNewStatusFoundMatchesNUM</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches">OnNewStatusFoundValidMatches</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatchesNUM">OnNewStatusFoundValidMatchesNUM</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot">OnNewStatusLoadParameterOnReboot</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult">OnNewStatusMatchScoreResult</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM">OnNewStatusMatchScoreResultNUM</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches">OnNewStatusMaxMatches</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxScale">OnNewStatusMaxScale</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore">OnNewStatusMinimalScore</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimumSeparation">OnNewStatusMinimumSeparation</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinScale">OnNewStatusMinScale</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPerformFineSearch">OnNewStatusPerformFineSearch</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorRotation">OnNewStatusPriorRotation</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorScale">OnNewStatusPriorScale</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent">OnNewStatusRegisteredEvent</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX">OnNewStatusResultTranslateX</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateY">OnNewStatusResultTranslateY</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRotationRange">OnNewStatusRotationRange</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusShowImage">OnNewStatusShowImage</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTileCount">OnNewStatusTileCount</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTimeout">OnNewStatusTimeout</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTought">OnNewStatusTought</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewTransformationNUM">OnNewTransformationNUM</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewValueToForwardNUM">OnNewValueToForwardNUM</a></p>
@@ -820,7 +1008,13 @@ ToDo<br>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewValueUpdateNUM">OnNewValueUpdateNUM</a></p>
 </li>
 <li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnNewViewerID">OnNewViewerID</a></p>
+</li>
+<li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnPersistentDataModuleAvailable">OnPersistentDataModuleAvailable</a></p>
+</li>
+<li>
+<p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnROIEditorActive">OnROIEditorActive</a></p>
 </li>
 <li>
 <p><a href="#API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelAdminActive">OnUserLevelAdminActive</a></p>
@@ -967,7 +1161,7 @@ ToDo<br>
 <h6 id="_short_description_7">Short description</h6>
 <div class="paragraph">
 <p>Example of dynamically served function to process internally coded function.<br>
-NUM will be replaced by the number of instance (e.g. "processInstance1").<br>
+NUM will be replaced by the numeric identifier of instance (e.g. "processInstance1").<br>
 INFO: Other modules can check via "Script.isServedAsFunction" if function of sepecific instance exists.<br>
 Needs then to be called via "Script.callFunction".</p>
 </div>
@@ -991,10 +1185,10 @@ Needs then to be called via "Script.callFunction".</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">image</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OBJECT<br>
-<a href="#API:Crown:Alias">Alias</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<a href="#API:Crown:Image">Image</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Transferred object (optional)</p></td>
 </tr>
 </tbody>
@@ -1031,7 +1225,7 @@ Needs then to be called via "Script.callFunction".</p>
 <h6 id="_sample_auto_generated_5">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua">result = CSK_MultiImageEdgeMatcher.processInstanceNUM(object)</code></pre>
+<pre class="CodeRay highlight"><code data-lang="lua">result = CSK_MultiImageEdgeMatcher.processInstanceNUM(image)</code></pre>
 </div>
 </div>
 </div>
@@ -1072,15 +1266,193 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setLoadOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setLoadOnReboot()</span></h5>
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setBackgroundClutter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setBackgroundClutter()</span></h5>
 <div class="sect5">
 <h6 id="_short_description_10">Short description</h6>
+<div class="paragraph">
+<p>Function to set background clutter level.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_2">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">level</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENUM<br>
+<a href="#API:Enum:CSK_MultiImageEdgeMatcher.BackgroundClutterLevel">CSK_MultiImageEdgeMatcher.BackgroundClutterLevel</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected background clutter level.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setBackgroundClutter(level)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setDownsampleFactor"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setDownsampleFactor()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_11">Short description</h6>
+<div class="paragraph">
+<p>Function to set downsample factor of edge matcher.<br>
+Setting this parameter will invalidate any previous teach call!</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_3">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">factor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Downsample factor.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setDownsampleFactor(factor)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setEdgeThreshold"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setEdgeThreshold()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_12">Short description</h6>
+<div class="paragraph">
+<p>Function to set edge threshold.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_4">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">threshold</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge threshold</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setEdgeThreshold(threshold)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setFineSearch"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setFineSearch()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_13">Short description</h6>
+<div class="paragraph">
+<p>Function to set status if fine search should be performed.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_5">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Default is true.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setFineSearch(status)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setLoadOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setLoadOnReboot()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_14">Short description</h6>
 <div class="paragraph">
 <p>Configure if this module should load its saved parameters at app/ device boot up.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_2">Parameters</h6>
+<h6 id="_parameters_6">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1107,7 +1479,7 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_8">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setLoadOnReboot(status)</code></pre>
@@ -1116,15 +1488,235 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setMaximumMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMaximumMatches()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_15">Short description</h6>
+<div class="paragraph">
+<p>Function to set maximum amount of matches to find.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_7">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum amount of matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setMaximumMatches(max)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setMaxScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMaxScale()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_16">Short description</h6>
+<div class="paragraph">
+<p>Function to set maximum of scale interval to search relative to the teach size.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_8">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The largest scale factor to search for. Upper limit is 1.2. Default value is 1.0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setMaxScale(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setMinimumValidScore"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinimumValidScore()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_17">Short description</h6>
+<div class="paragraph">
+<p>Function to set minimal valid match score.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_9">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minScore</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal valid match score.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setMinimumValidScore(minScore)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setMinScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinScale()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_18">Short description</h6>
+<div class="paragraph">
+<p>Function to set minimum of scale interval to search relative to the teach size.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_10">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The smallest scale factor to search for. Lower limit is 0.8. Default value is 1.0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setMinScale(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setMinSeparation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setMinSeparation()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_19">Short description</h6>
+<div class="paragraph">
+<p>Function to set the minimum separation between the centers of object matches.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_11">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minSeparation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum separation between the centers of two objects in image world units. The default value is 50.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setMinSeparation(minSeparation)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Function:CSK_MultiImageEdgeMatcher.setParameterName"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setParameterName()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_11">Short description</h6>
+<h6 id="_short_description_20">Short description</h6>
 <div class="paragraph">
 <p>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_3">Parameters</h6>
+<h6 id="_parameters_12">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1151,7 +1743,7 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_9">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setParameterName(name)</code></pre>
@@ -1160,16 +1752,104 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setPriorRotation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setPriorRotation()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_21">Short description</h6>
+<div class="paragraph">
+<p>Function to set prior orientation for rotation interval (see TODO).</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_13">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">orientation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prior orientation in degrees. The orientation search range is centered around this orientation. Default is zero (i.e. same orientation as teach object).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setPriorRotation(orientation)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setPriorScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setPriorScale()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_22">Short description</h6>
+<div class="paragraph">
+<p>Function to set prior scale factor of scale interval to search relative to the teach size.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_14">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set to the expected scale of the object to find, relative to the size of the teach object. E.g. 1.25 if the object to find is 25% larger than the teach object. Min: 0.1. Max: 10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setPriorScale(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Function:CSK_MultiImageEdgeMatcher.setRegisterEvent"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setRegisterEvent()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_12">Short description</h6>
+<h6 id="_short_description_23">Short description</h6>
 <div class="paragraph">
-<p>Configure event that this module should listen to. If this one is notified, it will be linked to internal processing function.<br>
-(Will be set to currently active instance, see "setSelectedObject")</p>
+<p>Configure event that this module should listen to. If this event is notified, it will be linked to the internal processing function.<br>
+(Will be set to currently active instance, see 'setSelectedObject')</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_4">Parameters</h6>
+<h6 id="_parameters_15">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1190,13 +1870,13 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 <td class="tableblock halign-left valign-top"><p class="tableblock">event</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(external) Event name to listen to.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Event name to listen to.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_10">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setRegisterEvent(event)</code></pre>
@@ -1205,15 +1885,147 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setResultTransX"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setResultTransX()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_24">Short description</h6>
+<div class="paragraph">
+<p>Function to set image translation in x direction added to found object position.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_16">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pixel in x direction.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setResultTransX(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setResultTransY"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setResultTransY()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_25">Short description</h6>
+<div class="paragraph">
+<p>Function to set image translation in y direction added to found object position.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_17">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pixel in y direction.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setResultTransY(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setRotationRange"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setRotationRange()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_26">Short description</h6>
+<div class="paragraph">
+<p>Function to set rotation interval to search in relative to the teach orientation.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_18">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">range</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Angle in degree unit, the maximum deviation from the original object orientation to search for. The default value is 180 degrees, i.e., full rotation.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setRotationRange(range)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Function:CSK_MultiImageEdgeMatcher.setSelectedInstance"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setSelectedInstance()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_13">Short description</h6>
+<h6 id="_short_description_27">Short description</h6>
 <div class="paragraph">
 <p>Select one of the multiple instances.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_parameters_5">Parameters</h6>
+<h6 id="_parameters_19">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1240,7 +2052,7 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_11">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setSelectedInstance(instance)</code></pre>
@@ -1248,348 +2060,16 @@ IMPORTANT: As instances start their own threads, the module needs to be restarte
 </div>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_events">Events</h4>
 <div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnDataLoadedOnReboot</span></h5>
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setShowImage"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setShowImage()</span></h5>
 <div class="sect5">
-<h6 id="_short_description_14">Short description</h6>
+<h6 id="_short_description_28">Short description</h6>
 <div class="paragraph">
-<p>Event to call if module tried to load parameters and should be ready.</p>
+<p>Function to select if image should be shown on UI.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_12">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnDataLoadedOnReboot</span>()
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnDataLoadedOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewInstanceList"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewInstanceList</span></h5>
-<div class="sect5">
-<h6 id="_short_description_15">Short description</h6>
-<div class="paragraph">
-<p>Event to provide list of created instances.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of created instances.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_13">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInstanceList</span>(list)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewInstanceList</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewInstanceList</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewParameterName"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewParameterName</span></h5>
-<div class="sect5">
-<h6 id="_short_description_16">Short description</h6>
-<div class="paragraph">
-<p>Notify name of persistent data parameter.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_2">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter name</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_14">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewParameterName</span>(name)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewParameterName</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewParameterName</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewProcessingParameter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewProcessingParameter</span></h5>
-<div class="sect5">
-<h6 id="_short_description_17">Short description</h6>
-<div class="paragraph">
-<p>Event to share processing parameters to the instances.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_3">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">objectNo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Number of the instance to receive the parameter.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">parameter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the parameter.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AUTO</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Value of the parameter.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">internalObjectNo</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">If parameter is for specifici internal used object, its number.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_15">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewProcessingParameter</span>(objectNo, parameter, value, internalObjectNo)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewProcessingParameter</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewProcessingParameter</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewResult"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewResult</span></h5>
-<div class="sect5">
-<h6 id="_short_description_18">Short description</h6>
-<div class="paragraph">
-<p>Generic event to notify results. E.g. to forward results from single instances.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_4">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">result</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Result</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_16">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewResult</span>(result)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewResult</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewResult</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewResultNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewResultNUM</span></h5>
-<div class="sect5">
-<h6 id="_short_description_19">Short description</h6>
-<div class="paragraph">
-<p>Example of dynamically created event to provide result of instance.<br>
-NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br>
-INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_5">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">result</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Result</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_17">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewResultNUM</span>(result)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewResultNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewResultNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewSelectedInstance"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewSelectedInstance</span></h5>
-<div class="sect5">
-<h6 id="_short_description_20">Short description</h6>
-<div class="paragraph">
-<p>Notify if new instance is selected.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_6">Callback arguments</h6>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 12.5%;">
-<col style="width: 37.5%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Type</th>
-<th class="tableblock halign-left valign-top">Multiplicity</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">selectedObject</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Selected instance.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect5">
-<h6 id="_sample_auto_generated_18">Sample (auto-generated)</h6>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewSelectedInstance</span>(selectedObject)
-  <span class="comment">-- Do something</span>
-<span class="keyword">end</span>
-
-Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewSelectedInstance</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewSelectedInstance</span><span class="delimiter">&quot;</span></span>)</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
-<div class="sect5">
-<h6 id="_short_description_21">Short description</h6>
-<div class="paragraph">
-<p>Notify status if parameters should be loaded on app/device boot up.</p>
-</div>
-</div>
-<div class="sect5">
-<h6 id="_callback_arguments_7">Callback arguments</h6>
+<h6 id="_parameters_20">Parameters</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1616,7 +2096,827 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_19">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setShowImage(status)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setTeachMode"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTeachMode()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_29">Short description</h6>
+<div class="paragraph">
+<p>Set status of teach mode for edge matcher.<br>
+If TRUE, the viewer in the UI will install an editor for the ROI.<br>
+If FALSE it will update the masks accordingly.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_21">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_27">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setTeachMode(status)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setTileCount"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTileCount()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_30">Short description</h6>
+<div class="paragraph">
+<p>Function to set into how many tile images the match image should be splitted into.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_22">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of tile images to split into. 0 gives automatic selection. 1 disables tiling. Default: 0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_28">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setTileCount(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.setTimeout"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">setTimeout()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_31">Short description</h6>
+<div class="paragraph">
+<p>Function to set the time the match call should abort if time exceeds.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_parameters_23">Parameters</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time in seconds after which the algorithm should abort. The default value is 5 seconds.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_29">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.setTimeout(value)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Function:CSK_MultiImageEdgeMatcher.unteach"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-function">unteach()</span></h5>
+<div class="sect5">
+<h6 id="_short_description_32">Short description</h6>
+<div class="paragraph">
+<p>Function to unteach matcher.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_30">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua">CSK_MultiImageEdgeMatcher.unteach()</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_events">Events</h4>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnDataLoadedOnReboot</span></h5>
+<div class="sect5">
+<h6 id="_short_description_33">Short description</h6>
+<div class="paragraph">
+<p>Event to call after module loaded parameters and is ready.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_31">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnDataLoadedOnReboot</span>()
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnDataLoadedOnReboot</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewAlignedImageNUM</span></h5>
+<div class="sect5">
+<h6 id="_short_description_34">Short description</h6>
+<div class="paragraph">
+<p>Example of dynamically created event to provide aligned image to be used for post processing.<br>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewAlignedImage1").<br>
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OBJECT<br>
+<a href="#API:Crown:Image">Image</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Aligned image</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_32">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewAlignedImageNUM</span>(image)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewAlignedImageNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewAlignedImageNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewInstanceList"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewInstanceList</span></h5>
+<div class="sect5">
+<h6 id="_short_description_35">Short description</h6>
+<div class="paragraph">
+<p>Event to provide list of created instances.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_2">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">list</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of created instances.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_33">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewInstanceList</span>(list)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewInstanceList</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewInstanceList</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewParameterName"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewParameterName</span></h5>
+<div class="sect5">
+<h6 id="_short_description_36">Short description</h6>
+<div class="paragraph">
+<p>Notify name of persistent data parameter.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_3">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Parameter name</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_34">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewParameterName</span>(name)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewParameterName</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewParameterName</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewProcessingParameter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewProcessingParameter</span></h5>
+<div class="sect5">
+<h6 id="_short_description_37">Short description</h6>
+<div class="paragraph">
+<p>Event to share processing parameters to the instances.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_4">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">objectNo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric identifier of the instance to receive the parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">parameter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AUTO</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value of the parameter.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">internalObjectNo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Numeric identifier, if parameter is for specific internal used object.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_35">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewProcessingParameter</span>(objectNo, parameter, value, internalObjectNo)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewProcessingParameter</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewProcessingParameter</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewSelectedInstance"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewSelectedInstance</span></h5>
+<div class="sect5">
+<h6 id="_short_description_38">Short description</h6>
+<div class="paragraph">
+<p>Notify if new instance is selected.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_5">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">selectedObject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Selected instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_36">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewSelectedInstance</span>(selectedObject)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewSelectedInstance</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewSelectedInstance</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusBackgroundClutter"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusBackgroundClutter</span></h5>
+<div class="sect5">
+<h6 id="_short_description_39">Short description</h6>
+<div class="paragraph">
+<p>Notify background clutter level.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_6">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">level</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Background clutter level.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_37">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusBackgroundClutter</span>(level)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusBackgroundClutter</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusBackgroundClutter</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusDownsampleFactor</span></h5>
+<div class="sect5">
+<h6 id="_short_description_40">Short description</h6>
+<div class="paragraph">
+<p>Notify currently used downsample factor of edge matcher.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_7">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">factor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Downsample factor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_38">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusDownsampleFactor</span>(factor)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusDownsampleFactor</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusDownsampleFactor</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusEdgeThreshold"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusEdgeThreshold</span></h5>
+<div class="sect5">
+<h6 id="_short_description_41">Short description</h6>
+<div class="paragraph">
+<p>Notify currently used edge threshold.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_8">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">threshold</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Edge threshold.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_39">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusEdgeThreshold</span>(threshold)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusEdgeThreshold</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusEdgeThreshold</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundMatches</span></h5>
+<div class="sect5">
+<h6 id="_short_description_42">Short description</h6>
+<div class="paragraph">
+<p>Notify amount of found matches of currently selected EdgeMatcher instance.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_9">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of found matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_40">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFoundMatches</span>(amount)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFoundMatches</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundMatchesNUM</span></h5>
+<div class="sect5">
+<h6 id="_short_description_43">Short description</h6>
+<div class="paragraph">
+<p>Example of dynamically created event to provide result of found matches.<br>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusFoundMatches1").<br>
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_10">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of found matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_41">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFoundMatchesNUM</span>(amount)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatchesNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFoundMatchesNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundValidMatches</span></h5>
+<div class="sect5">
+<h6 id="_short_description_44">Short description</h6>
+<div class="paragraph">
+<p>Notify amount of found matches with valid score of currently selected EdgeMatcher instance.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_11">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of found matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_42">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFoundValidMatches</span>(amount)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatches</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFoundValidMatches</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatchesNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusFoundValidMatchesNUM</span></h5>
+<div class="sect5">
+<h6 id="_short_description_45">Short description</h6>
+<div class="paragraph">
+<p>Example of dynamically created event to provide result of found matches with valid score.<br>
+NUM will be replaced by the number of instance (e.g. "OnNewStatusFoundValidMatches1").<br>
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_12">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">amount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Amount of found matches with valid score.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_43">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusFoundValidMatchesNUM</span>(amount)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusFoundValidMatchesNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusFoundValidMatchesNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusLoadParameterOnReboot</span></h5>
+<div class="sect5">
+<h6 id="_short_description_46">Short description</h6>
+<div class="paragraph">
+<p>Notify status if parameters should be loaded on app/device boot up.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_13">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_44">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusLoadParameterOnReboot</span>(status)
@@ -1629,16 +2929,934 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMatchScoreResult</span></h5>
+<div class="sect5">
+<h6 id="_short_description_47">Short description</h6>
+<div class="paragraph">
+<p>Notify score of found match of currently selected EdgeMatcher instance.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_14">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">score</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Score of match.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_45">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMatchScoreResult</span>(score)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMatchScoreResult</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMatchScoreResultNUM</span></h5>
+<div class="sect5">
+<h6 id="_short_description_48">Short description</h6>
+<div class="paragraph">
+<p>Notify score of match.
+Example of dynamically created event to provide score of match.<br>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusMatchScoreResult1").<br>
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_15">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">score</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scores of matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_46">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMatchScoreResultNUM</span>(score)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMatchScoreResultNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMaxMatches</span></h5>
+<div class="sect5">
+<h6 id="_short_description_49">Short description</h6>
+<div class="paragraph">
+<p>Notify maximum amount of matches to find.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_16">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum amount of matches.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_47">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMaxMatches</span>(max)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMaxMatches</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMaxMatches</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMaxScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMaxScale</span></h5>
+<div class="sect5">
+<h6 id="_short_description_50">Short description</h6>
+<div class="paragraph">
+<p>Notify largest scale factor to search for.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_17">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxScale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upper limit is 1.2. Default value is 1.0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_48">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMaxScale</span>(maxScale)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMaxScale</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMaxScale</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinimalScore</span></h5>
+<div class="sect5">
+<h6 id="_short_description_51">Short description</h6>
+<div class="paragraph">
+<p>Notify currently minimal valid match score.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_18">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">score</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal valid match score.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_49">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMinimalScore</span>(score)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMinimalScore</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMinimalScore</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinimumSeparation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinimumSeparation</span></h5>
+<div class="sect5">
+<h6 id="_short_description_52">Short description</h6>
+<div class="paragraph">
+<p>Notify minimum separation between the center of object matches.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_19">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minSeparation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum separation between the centers of two objects in image world units.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_50">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMinimumSeparation</span>(minSeparation)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMinimumSeparation</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMinimumSeparation</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusMinScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusMinScale</span></h5>
+<div class="sect5">
+<h6 id="_short_description_53">Short description</h6>
+<div class="paragraph">
+<p>Notify smallest scale factor to search for.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_20">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minScale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lower limit is 0.8. Default value is 1.0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_51">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusMinScale</span>(minScale)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusMinScale</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusMinScale</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPerformFineSearch"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPerformFineSearch</span></h5>
+<div class="sect5">
+<h6 id="_short_description_54">Short description</h6>
+<div class="paragraph">
+<p>Notify if the fine search should be perfromed.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_21">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_52">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusPerformFineSearch</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusPerformFineSearch</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusPerformFineSearch</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorRotation"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPriorRotation</span></h5>
+<div class="sect5">
+<h6 id="_short_description_55">Short description</h6>
+<div class="paragraph">
+<p>Notify prior orientation for rotation range.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_22">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">priorRotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prior orientation in degree.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_53">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusPriorRotation</span>(priorRotation)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusPriorRotation</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusPriorRotation</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusPriorScale"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusPriorScale</span></h5>
+<div class="sect5">
+<h6 id="_short_description_56">Short description</h6>
+<div class="paragraph">
+<p>Notfiy prior scale factor for scale ranger.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_23">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">priorScale</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Min: 0.1. Max: 10</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_54">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusPriorScale</span>(priorScale)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusPriorScale</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusPriorScale</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusRegisteredEvent</span></h5>
+<div class="sect5">
+<h6 id="_short_description_57">Short description</h6>
+<div class="paragraph">
+<p>Notify event instance is registered to receive new image to process.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_24">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eventname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of event.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_55">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusRegisteredEvent</span>(eventname)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusRegisteredEvent</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusResultTranslateX</span></h5>
+<div class="sect5">
+<h6 id="_short_description_58">Short description</h6>
+<div class="paragraph">
+<p>Notify pixel to transform result in x direction.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_25">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pixel in x direction.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_56">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusResultTranslateX</span>(value)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusResultTranslateX</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateY"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusResultTranslateY</span></h5>
+<div class="sect5">
+<h6 id="_short_description_59">Short description</h6>
+<div class="paragraph">
+<p>Notify pixel to transform result in y direction.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_26">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pixel in y direction.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_57">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusResultTranslateY</span>(value)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateY</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusResultTranslateY</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusRotationRange"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusRotationRange</span></h5>
+<div class="sect5">
+<h6 id="_short_description_60">Short description</h6>
+<div class="paragraph">
+<p>Notify angle in degree, the maximum deviation from the original object orientation to search for.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_27">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">angle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Angle in degree.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_58">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusRotationRange</span>(angle)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusRotationRange</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusRotationRange</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusShowImage"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusShowImage</span></h5>
+<div class="sect5">
+<h6 id="_short_description_61">Short description</h6>
+<div class="paragraph">
+<p>Notify if image should be showed in UI.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_28">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_59">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusShowImage</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusShowImage</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusShowImage</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTileCount"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTileCount</span></h5>
+<div class="sect5">
+<h6 id="_short_description_62">Short description</h6>
+<div class="paragraph">
+<p>Notify how many tile images the match image should be splitted into.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_29">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tileCount</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of tile images to split into.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_60">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusTileCount</span>(tileCount)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusTileCount</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusTileCount</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTimeout"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTimeout</span></h5>
+<div class="sect5">
+<h6 id="_short_description_63">Short description</h6>
+<div class="paragraph">
+<p>Notify time in seconds after which the match algorithm should abort.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_30">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">timeoutSeconds</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FLOAT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time in seconds after which the algorithm should abort.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_61">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusTimeout</span>(timeoutSeconds)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusTimeout</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusTimeout</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewStatusTought"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewStatusTought</span></h5>
+<div class="sect5">
+<h6 id="_short_description_64">Short description</h6>
+<div class="paragraph">
+<p>Notify if matcher was teached already.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_31">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_62">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewStatusTought</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewStatusTought</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewStatusTought</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewTransformationNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewTransformationNUM</span></h5>
+<div class="sect5">
+<h6 id="_short_description_65">Short description</h6>
+<div class="paragraph">
+<p>Example of dynamically created event to provide transformation data to be used for post processing.<br>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewTransformation1").<br>
+INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_32">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">transform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OBJECT<br>
+<a href="#API:Crown:Transform">Transform</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transformation</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_63">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewTransformationNUM</span>(transform)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewTransformationNUM</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewTransformationNUM</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewValueToForwardNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewValueToForwardNUM</span></h5>
 <div class="sect5">
-<h6 id="_short_description_22">Short description</h6>
+<h6 id="_short_description_66">Short description</h6>
 <div class="paragraph">
 <p>Example of dynamically created event to forward data from instance thread to Controller part of module, e.g. to forward values to UI.<br>
-NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br></p>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewValueToForward1").<br></p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_8">Callback arguments</h6>
+<h6 id="_callback_arguments_33">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1671,7 +3889,7 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br></p>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_20">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_64">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewValueToForwardNUM</span>(eventname, value)
@@ -1686,14 +3904,14 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewValueUpdateNUM"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewValueUpdateNUM</span></h5>
 <div class="sect5">
-<h6 id="_short_description_23">Short description</h6>
+<h6 id="_short_description_67">Short description</h6>
 <div class="paragraph">
 <p>Example of dynamically created event to sync paramters between instance threads and Controller part of module.<br>
-NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br></p>
+NUM will be replaced by the numeric identifier of instance (e.g. "OnNewValueUpdate1").<br></p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_9">Callback arguments</h6>
+<h6 id="_callback_arguments_34">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1714,7 +3932,7 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br></p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">instance</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instance new value is coming from.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instance the new value is coming from.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">parameter</p></td>
@@ -1732,13 +3950,13 @@ NUM will be replaced by the number of instance (e.g. "OnNewResult1").<br></p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">selectedObject</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INT</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">?</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Optionally if internal parameter should be used for internal objects.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Optional: If internal parameter should be used for internal objects.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_21">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_65">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewValueUpdateNUM</span>(instance, parameter, value, selectedObject)
@@ -1751,15 +3969,63 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnNewViewerID"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnNewViewerID</span></h5>
+<div class="sect5">
+<h6 id="_short_description_68">Short description</h6>
+<div class="paragraph">
+<p>Notify viewerID for viewer in UI for currently selected instance.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_35">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ViewerID</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_66">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnNewViewerID</span>(id)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnNewViewerID</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnNewViewerID</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnPersistentDataModuleAvailable"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnPersistentDataModuleAvailable</span></h5>
 <div class="sect5">
-<h6 id="_short_description_24">Short description</h6>
+<h6 id="_short_description_69">Short description</h6>
 <div class="paragraph">
 <p>Notify status if features of CSK_PersistentData module are available.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_10">Callback arguments</h6>
+<h6 id="_callback_arguments_36">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1786,7 +4052,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_22">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_67">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnPersistentDataModuleAvailable</span>(status)
@@ -1799,15 +4065,15 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 <div class="sect4">
-<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelAdminActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnROIEditorActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnROIEditorActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_25">Short description</h6>
+<h6 id="_short_description_70">Short description</h6>
 <div class="paragraph">
-<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+<p>Notify if ROI editor is currently active in UI.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_11">Callback arguments</h6>
+<h6 id="_callback_arguments_37">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1834,7 +4100,55 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_23">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_68">Sample (auto-generated)</h6>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnROIEditorActive</span>(status)
+  <span class="comment">-- Do something</span>
+<span class="keyword">end</span>
+
+Script.register(<span class="string"><span class="delimiter">&quot;</span><span class="content">CSK_MultiImageEdgeMatcher.OnROIEditorActive</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">handleOnROIEditorActive</span><span class="delimiter">&quot;</span></span>)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelAdminActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelAdminActive</span></h5>
+<div class="sect5">
+<h6 id="_short_description_71">Short description</h6>
+<div class="paragraph">
+<p>Status of Admin userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_callback_arguments_38">Callback arguments</h6>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Multiplicity</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BOOL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect5">
+<h6 id="_sample_auto_generated_69">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelAdminActive</span>(status)
@@ -1849,13 +4163,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelMaintenanceActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelMaintenanceActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_26">Short description</h6>
+<h6 id="_short_description_72">Short description</h6>
 <div class="paragraph">
 <p>Status of Maintenance userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_12">Callback arguments</h6>
+<h6 id="_callback_arguments_39">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1882,7 +4196,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_24">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_70">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelMaintenanceActive</span>(status)
@@ -1897,13 +4211,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelOperatorActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelOperatorActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_27">Short description</h6>
+<h6 id="_short_description_73">Short description</h6>
 <div class="paragraph">
 <p>Status of Operator userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_13">Callback arguments</h6>
+<h6 id="_callback_arguments_40">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1930,7 +4244,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_25">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_71">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelOperatorActive</span>(status)
@@ -1945,13 +4259,13 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 <div class="sect4">
 <h5 id="API:Event:CSK_MultiImageEdgeMatcher.OnUserLevelServiceActive"><span class="breadcrumb">CSK_MultiImageEdgeMatcher.</span><span class="api-event">OnUserLevelServiceActive</span></h5>
 <div class="sect5">
-<h6 id="_short_description_28">Short description</h6>
+<h6 id="_short_description_74">Short description</h6>
 <div class="paragraph">
 <p>Status of Service userlevel. Used internally in combination with the CSK_UserManagement module if available.</p>
 </div>
 </div>
 <div class="sect5">
-<h6 id="_callback_arguments_14">Callback arguments</h6>
+<h6 id="_callback_arguments_41">Callback arguments</h6>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 25%;">
@@ -1978,7 +4292,7 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </table>
 </div>
 <div class="sect5">
-<h6 id="_sample_auto_generated_26">Sample (auto-generated)</h6>
+<h6 id="_sample_auto_generated_72">Sample (auto-generated)</h6>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="lua"><span class="keyword">function</span> <span class="function">handleOnUserLevelServiceActive</span>(status)
@@ -1994,11 +4308,68 @@ Script.register(<span class="string"><span class="delimiter">&quot;</span><span 
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_enumerations">Enumerations</h2>
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">C</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#API:Enum:CSK_MultiImageEdgeMatcher.BackgroundClutterLevel">CSK_MultiImageEdgeMatcher.BackgroundClutterLevel</a></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div class="sect2">
+<h3 id="API:Enum:CSK_MultiImageEdgeMatcher.BackgroundClutterLevel"><span class="api-enum">CSK_MultiImageEdgeMatcher.BackgroundClutterLevel</span></h3>
+<div class="paragraph">
+<p>Background clutter level.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Items</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Value</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>HIGH</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HIGH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set if image contains a lot of other edges, structures, noise, clutter in areas not belonging to the object of interest (like barcodes and text which generate a lot of edge responses).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>MEDIUM</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set for clean scenes to gain speed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="literal"><pre>LOW</pre></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set for clean scenes to gain speed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.1.0<br>
-Last updated 2023-08-16 12:18:35 +0200
+Version 1.0.0<br>
+Last updated 2024-03-19 12:57:50 +0100
 </div>
 </div>
 <script type="text/javascript">

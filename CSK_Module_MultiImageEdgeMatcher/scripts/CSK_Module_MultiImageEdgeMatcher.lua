@@ -31,7 +31,7 @@
 -- If app property "LuaLoadAllEngineAPI" is FALSE, use this to load and check for required APIs
 -- This can improve performance of garbage collection
 
--- _G.availableAPIs = require('ImageProcessing/MultiImageEdgeMatcher/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
+_G.availableAPIs = require('ImageProcessing/MultiImageEdgeMatcher/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
 -----------------------------------------------------------
 -- Logger
 _G.logger = Log.SharedLogger.create('ModuleLogger')
@@ -60,30 +60,6 @@ multiImageEdgeMatcherController.setMultiImageEdgeMatcher_Instances_Handle(multiI
 --**********************Start Function Scope *******************************
 --**************************************************************************
 
---[[
---- Function to show how this module could be used
-local function startProcessing()
-
-  CSK_MultiImageEdgeMatcher.setSelectedInstance(1) --> select instance of module
-  CSK_MultiImageEdgeMatcher.doSomething() --> preparation
-
-  -- Option A --> prepare an event to trigger processing via this one
-  --Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewTestEvent", "MultiImageEdgeMatcher_OnNewTestEvent") --> Create event to listen to and process forwarded object
-  --CSK_MultiImageEdgeMatcher.setRegisterEvent('CSK_MultiImageEdgeMatcher.OnNewTestEvent') --> Register processing to the event
-
-  --Script.notifyEvent('OnNewTestEvent', data)
-
-    -- Option B --> trigger processing via function call
-    local result = CSK_MultiImageEdgeMatcher.processSomething(data)
-
-  end
-end
-
--- Call processing function after persistent data was loaded
---Script.register("CSK_MultiImageEdgeMatcher.OnDataLoadedOnReboot", startProcessing)
-]]
-
---OR
 
 --- Function to react on startup event of the app
 local function main()
@@ -95,11 +71,10 @@ local function main()
   --       event CSK_PersistentData.OnInitialDataLoaded
   --       (see internal variable _G.multiImageEdgeMatcher_Model.parameterLoadOnReboot)
   --       If so, the app will trigger the "OnDataLoadedOnReboot" event if ready after loading parameters
-  --
-  -- Can be used e.g. like this
+  -- Check UI for setup
   ----------------------------------------------------------------------------------------
 
-  --startProcessing() --> see above
+  CSK_MultiImageEdgeMatcher.setSelectedInstance(1) --> select instance of module
   CSK_MultiImageEdgeMatcher.pageCalled() -- Update UI
 
 end

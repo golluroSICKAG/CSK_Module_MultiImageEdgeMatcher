@@ -1,27 +1,24 @@
 # CSK_Module_MultiImageEdgeMatcher
 
-## INFO: Draft version. Not further developed / tested so far! Check for available GitHub forks of this repository to see latest updates.
+Module to provide 2D Image EdgeMatcher functionality to search for objects within an image and align it accordingly.  
 
-Module / Application to provide [...] functionality.
-
-*If available, please also add a screenshot/gif of the UI of the module here placed within /docu/media/ (see code)*
-![](https://github.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/blob/main/docu/media/UI_Screenshot.png)
+![plot](./docu/media/UI_Screenshot.png)
 
 ## How to Run
 
-[***...please fill with informations...***]  
+The app includes an intuitive GUI.  
 For further information check out the [documentation](https://raw.githack.com/SICKAppSpaceCodingStarterKit/CSK_Module_MultiImageEdgeMatcher/main/docu/CSK_Module_MultiImageEdgeMatcher.html) in the folder "docu".
+
+## Known issues
+- Even if found multiple matches, module will only provide the aligned image / transformation of first match  
+- Limited to CPU processing unit (no FPGA support)  
 
 ## Information
 
 Tested on:
-[Device] - [firmware]
-...
-
-[***optionally***]
-Following CSK modules are used for this application via Git subtrees and should NOT be further developed within this repository (see [contribution guideline](https://github.com/SICKAppSpaceCodingStarterKit/.github/blob/main/Contribution_Guideline.md) of this GitHub organization):  
-
-  * CSK_Module_XYZ (release/tag v1.2.3)
+|Device|Firmware|Module version
+|--|--|--|
+|SICK AppEngine|V1.5.0|V1.0.0|
 
 This application / module is part of the SICK AppSpace Coding Starter Kit developing approach.  
 It is programmed in an object oriented way. Some of the modules use kind of "classes" in Lua to make it possible to reuse code / classes in other projects.  
@@ -30,4 +27,4 @@ Please check the [documentation](https://github.com/SICKAppSpaceCodingStarterKit
 
 ## Topics
 
-Coding Starter Kit, CSK, Module, SICK-AppSpace, [key_words]
+Coding Starter Kit, CSK, Module, SICK-AppSpace, 2D, Image, Edge, Matcher

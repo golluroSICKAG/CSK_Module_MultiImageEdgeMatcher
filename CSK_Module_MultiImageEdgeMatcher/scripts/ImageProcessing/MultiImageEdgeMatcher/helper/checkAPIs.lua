@@ -10,11 +10,20 @@ local function loadAPIs()
 
   Container = require 'API.Container'
   Engine = require 'API.Engine'
+  Image = require 'API.Image'
+  Image.Matching = {}
+  Image.Matching.EdgeMatcher = require 'API.Image.Matching.EdgeMatcher'
   Log = require 'API.Log'
   Log.Handler = require 'API.Log.Handler'
   Log.SharedLogger = require 'API.Log.SharedLogger'
   Object = require 'API.Object'
+  Point = require 'API.Point'
+  Shape = require 'API.Shape'
   Timer = require 'API.Timer'
+  Transform = require 'API.Transform'
+  View = require 'API.View'
+  View.ShapeDecoration = require 'API.View.ShapeDecoration'
+  View.TextDecoration = require 'API.View.TextDecoration'
 
   -- Check if related CSK modules are available to be used
   local appList = Engine.listApps()
