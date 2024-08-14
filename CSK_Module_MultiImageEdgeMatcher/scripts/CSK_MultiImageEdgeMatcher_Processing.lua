@@ -22,6 +22,7 @@ local lastQueueSize = nil -- Size of queue
 
 local imageID = 'Image' -- image ID for viewer
 local roiID = 'ROI' -- ID of ROI in viewer
+local matcherID = 'matcherID'
 local roiEditorActive = false -- is ROI editor in viewer active
 local installedEditorIconic = nil -- is editor in viewer installed on an object like pipette, ROI, mask
 
@@ -33,6 +34,7 @@ local tought = false
 
 local centerX_ROI = 100.0 -- xPos of ROI
 local centerY_ROI = 100.0 -- yPos of ROI
+local radius_ROI = 100.0 -- radius of ROI if circle
 local width_ROI = 100.0 -- width of ROI
 local height_ROI = 100.0 -- height of ROI
 local center_ROI = Point.create(centerX_ROI, centerY_ROI) -- centerPoint of ROI
@@ -54,7 +56,7 @@ Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewValueUpdate" .. multiImageEdge
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewAlignedImage" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewAlignedImage" .. multiImageEdgeMatcherInstanceNumberString, 'object:1:Image')
 
 -- Event to forward transformation
-Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, 'object:1:Transform')
+Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewTransformation" .. multiImageEdgeMatcherInstanceNumberString, 'object:[?*]:Transform')
 
 local processingParams = {}
 processingParams.matcher = Image.Matching.EdgeMatcher.create() -- EdgeMatcher
@@ -111,7 +113,7 @@ local function teachEdgeMatcher(img)
   -- Check if wanted downsample factor is supported by device
   local minDsf,_ = processingParams.matcher:getDownsampleFactorLimits(img)
   if (minDsf > processingParams.downsampleFactor) then
-    _G.logger:info("Cannot use downsample factor " .. wantedDownsampleFactor .. " will use " .. minDsf .. " instead")
+    _G.logger:info("Cannot use downsample factor " .. tostring(processingParams.downsampleFactor) .. " will use " .. minDsf .. " instead")
     processingParams.downsampleFactor = minDsf
     processingParams.matcher:setDownsampleFactor(minDsf)
   end
@@ -223,6 +225,8 @@ local function handleOnNewProcessing(image)
       end
     end
 
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewTransformation' .. multiImageEdgeMatcherInstanceNumberString, poses)
+
     -- Visualizing found objects
     for j = 1, #scores do
       if scores[j] >= processingParams.minScore then
@@ -250,7 +254,6 @@ local function handleOnNewProcessing(image)
           local movedPose = Transform.translate2D(transPose, processingParams.resultTransX, processingParams.resultTransY)
           local transImage = image:transform(movedPose)
 
-          Script.notifyEvent('MultiImageEdgeMatcher_OnNewTransformation' .. multiImageEdgeMatcherInstanceNumberString, movedPose)
           Script.notifyEvent('MultiImageEdgeMatcher_OnNewAlignedImage' .. multiImageEdgeMatcherInstanceNumberString, transImage)
           if processingParams.showImage and processingParams.activeInUI then
             transViewer:addImage(transImage)
@@ -267,7 +270,7 @@ local function handleOnNewProcessing(image)
   end
 
 end
-Script.serveFunction("CSK_MultiImageEdgeMatcher.processInstance"..multiImageEdgeMatcherInstanceNumberString, handleOnNewProcessing, 'object:?:Alias', 'bool:?') -- Edit this according to this function
+Script.serveFunction("CSK_MultiImageEdgeMatcher.processInstance"..multiImageEdgeMatcherInstanceNumberString, handleOnNewProcessing, 'object:1:Image', 'bool:?')
 
 --**********************************
 -- Region of Interest Functions
@@ -368,6 +371,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
         processingParams.matcher:setEdgeThreshold(processingParams.edgeThreshold)
       elseif parameter == 'downsampleFactor' then
         processingParams.matcher:setDownsampleFactor(processingParams.downsampleFactor)
+        tought = false
       elseif parameter == 'maxMatches' then
         processingParams.matcher:setMaxMatches(processingParams.maxMatches)
       elseif parameter == 'backgroundClutter' then

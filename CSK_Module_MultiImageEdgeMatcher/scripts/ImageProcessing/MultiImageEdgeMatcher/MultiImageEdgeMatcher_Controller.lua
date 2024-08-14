@@ -42,10 +42,11 @@ Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResultNUM', 'M
 
 -- Real events
 --------------------------------------------------
-
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusModuleVersion', 'MultiImageEdgeMatcher_OnNewStatusModuleVersion')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusCSKStyle', 'MultiImageEdgeMatcher_OnNewStatusCSKStyle')
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusModuleIsActive', 'MultiImageEdgeMatcher_OnNewStatusModuleIsActive')
 
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusTought', 'MultiImageEdgeMatcher_OnNewStatusTought')
-
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusRegisteredEvent', 'MultiImageEdgeMatcher_OnNewStatusRegisteredEvent')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewViewerID', 'MultiImageEdgeMatcher_OnNewViewerID')
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusShowImage", "MultiImageEdgeMatcher_OnNewStatusShowImage")
@@ -74,6 +75,7 @@ Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusMatchScoreResult', 'Mult
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateX', 'MultiImageEdgeMatcher_OnNewStatusResultTranslateX')
 Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusResultTranslateY', 'MultiImageEdgeMatcher_OnNewStatusResultTranslateY')
 
+Script.serveEvent('CSK_MultiImageEdgeMatcher.OnNewStatusFlowConfigPriority', 'MultiImageEdgeMatcher_OnNewStatusFlowConfigPriority')
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusLoadParameterOnReboot", "MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnPersistentDataModuleAvailable", "MultiImageEdgeMatcher_OnPersistentDataModuleAvailable")
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewParameterName", "MultiImageEdgeMatcher_OnNewParameterName")
@@ -197,52 +199,61 @@ end
 --- Function to send all relevant values to UI on resume
 local function handleOnExpiredTmrMultiImageEdgeMatcher()
 
-  updateUserLevel()
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusModuleVersion", multiImageEdgeMatcher_Model.version)
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusCSKStyle", multiImageEdgeMatcher_Model.styleForUI)
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusModuleIsActive", _G.availableAPIs.default and _G.availableAPIs.specific)
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewSelectedInstance', selectedInstance)
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewInstanceList", helperFuncs.createStringListBySize(#multiImageEdgeMatcher_Instances))
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTought', multiImageEdgeMatcher_Instances[selectedInstance].tought)
+    updateUserLevel()
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', multiImageEdgeMatcher_Instances[selectedInstance].parameters.registeredEvent)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewViewerID', 'multiImageEdgeMatcherViewer' .. tostring(selectedInstance))
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusShowImage', multiImageEdgeMatcher_Instances[selectedInstance].parameters.showImage)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnROIEditorActive', roiEditorActive)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewSelectedInstance', selectedInstance)
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewInstanceList", helperFuncs.createStringListBySize(#multiImageEdgeMatcher_Instances))
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusEdgeThreshold', multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimalScore', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusDownsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTought', multiImageEdgeMatcher_Instances[selectedInstance].tought)
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusBackgroundClutter', multiImageEdgeMatcher_Instances[selectedInstance].parameters.backgroundClutter)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimumSeparation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minSeparation)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPerformFineSearch', multiImageEdgeMatcher_Instances[selectedInstance].parameters.fineSearch)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRotationRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorRotation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorRotationRange)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScaleRange)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxScaleRange)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorScale)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTileCount', multiImageEdgeMatcher_Instances[selectedInstance].parameters.tileCount)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTimeout', multiImageEdgeMatcher_Instances[selectedInstance].parameters.timeout)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', multiImageEdgeMatcher_Instances[selectedInstance].parameters.registeredEvent)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewViewerID', 'multiImageEdgeMatcherViewer' .. tostring(selectedInstance))
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusShowImage', multiImageEdgeMatcher_Instances[selectedInstance].parameters.showImage)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnROIEditorActive', roiEditorActive)
 
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateX', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransX)
-  Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateY', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransY)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusEdgeThreshold', multiImageEdgeMatcher_Instances[selectedInstance].parameters.edgeThreshold)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimalScore', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScore)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusDownsampleFactor', multiImageEdgeMatcher_Instances[selectedInstance].parameters.downsampleFactor)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxMatches', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxMatches)
 
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundMatches", '0')
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundValidMatches", '0')
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusMatchScoreResult", '0.0')
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusBackgroundClutter', multiImageEdgeMatcher_Instances[selectedInstance].parameters.backgroundClutter)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinimumSeparation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minSeparation)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPerformFineSearch', multiImageEdgeMatcher_Instances[selectedInstance].parameters.fineSearch)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRotationRange', multiImageEdgeMatcher_Instances[selectedInstance].parameters.rotationRange)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorRotation', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorRotationRange)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMinScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.minScaleRange)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusMaxScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.maxScaleRange)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusPriorScale', multiImageEdgeMatcher_Instances[selectedInstance].parameters.priorScale)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTileCount', multiImageEdgeMatcher_Instances[selectedInstance].parameters.tileCount)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusTimeout', multiImageEdgeMatcher_Instances[selectedInstance].parameters.timeout)
 
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot", multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot)
-  Script.notifyEvent("MultiImageEdgeMatcher_OnPersistentDataModuleAvailable", multiImageEdgeMatcher_Instances[selectedInstance].persistentModuleAvailable)
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewParameterName", multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateX', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransX)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusResultTranslateY', multiImageEdgeMatcher_Instances[selectedInstance].parameters.resultTransY)
 
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundMatches", '0')
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFoundValidMatches", '0')
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusMatchScoreResult", '0.0')
+
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFlowConfigPriority", multiImageEdgeMatcher_Instances[selectedInstance].parameters.flowConfigPriority)
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot", multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot)
+    Script.notifyEvent("MultiImageEdgeMatcher_OnPersistentDataModuleAvailable", multiImageEdgeMatcher_Instances[selectedInstance].persistentModuleAvailable)
+    Script.notifyEvent("MultiImageEdgeMatcher_OnNewParameterName", multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
+  end
 end
 Timer.register(tmrMultiImageEdgeMatcher, "OnExpired", handleOnExpiredTmrMultiImageEdgeMatcher)
 
 -- ********************* UI Setting / Submit Functions Start ********************
 
 local function pageCalled()
-  updateUserLevel() -- try to hide user specific content asap
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    updateUserLevel() -- try to hide user specific content asap
+  end
   tmrMultiImageEdgeMatcher:start()
   return ''
 end
@@ -252,7 +263,8 @@ local function setSelectedInstance(instance)
 
   if #multiImageEdgeMatcher_Instances >= instance then
     roiEditorActive = false
-    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'chancelEditors', true)
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', selectedInstance, 'cancelEditors', true)
+
 
     selectedInstance = instance
     _G.logger:fine(nameOfModule .. ": New selected instance = " .. tostring(selectedInstance))
@@ -473,6 +485,29 @@ local function setResultTransY(value)
 end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.setResultTransY', setResultTransY)
 
+local function getStatusModuleActive()
+  return _G.availableAPIs.default and _G.availableAPIs.specific
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.getStatusModuleActive', getStatusModuleActive)
+
+local function clearFlowConfigRelevantConfiguration()
+  for i = 1, #multiImageEdgeMatcher_Instances do
+    multiImageEdgeMatcher_Instances[i].parameters.registeredEvent = ''
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', i, 'deregisterFromEvent', '')
+    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', '')
+  end
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.clearFlowConfigRelevantConfiguration', clearFlowConfigRelevantConfiguration)
+
+local function getParameters(instanceNo)
+  if instanceNo <= #multiImageEdgeMatcher_Instances then
+    return helperFuncs.json.encode(multiImageEdgeMatcher_Instances[instanceNo].parameters)
+  else
+    return ''
+  end
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.getParameters', getParameters)
+
 -- *****************************************************************
 -- Following function can be adapted for CSK_PersistentData module usage
 -- *****************************************************************
@@ -483,7 +518,7 @@ local function setParameterName(name)
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.setParameterName", setParameterName)
 
-local function sendParameters()
+local function sendParameters(noDataSave)
   if multiImageEdgeMatcher_Instances[selectedInstance].persistentModuleAvailable then
     CSK_PersistentData.addParameter(helperFuncs.convertTable2Container(multiImageEdgeMatcher_Instances[selectedInstance].parameters), multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
 
@@ -494,7 +529,9 @@ local function sendParameters()
       CSK_PersistentData.setModuleParameterName(nameOfModule, multiImageEdgeMatcher_Instances[selectedInstance].parametersName, multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot, tostring(selectedInstance))
     end
     _G.logger:fine(nameOfModule .. ": Send MultiImageEdgeMatcher parameters with name '" .. multiImageEdgeMatcher_Instances[selectedInstance].parametersName .. "' to CSK_PersistentData module.")
-    CSK_PersistentData.saveData()
+    if not noDataSave then
+      CSK_PersistentData.saveData()
+    end
   else
     _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
   end
@@ -505,7 +542,7 @@ local function loadParameters()
   if multiImageEdgeMatcher_Instances[selectedInstance].persistentModuleAvailable then
     local data = CSK_PersistentData.getParameter(multiImageEdgeMatcher_Instances[selectedInstance].parametersName)
     if data then
-      _G.logger:fine(nameOfModule .. ": Loaded parameters for multiImageEdgeMatcherObject " .. tostring(selectedInstance) .. " from CSK_PersistentData module.")
+      _G.logger:info(nameOfModule .. ": Loaded parameters for multiImageEdgeMatcherObject " .. tostring(selectedInstance) .. " from CSK_PersistentData module.")
 
       multiImageEdgeMatcher_Instances[selectedInstance].parameters = helperFuncs.convertContainer2Table(data)
       local serMatcher = Object.serialize(multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher, 'JSON')
@@ -514,65 +551,96 @@ local function loadParameters()
 
       -- If something needs to be configured/activated with new loaded data
       updateProcessingParameters()
-      CSK_MultiImageEdgeMatcher.pageCalled()
+      tmrMultiImageEdgeMatcher:start()
+      return true
     else
       _G.logger:warning(nameOfModule .. ": Loading parameters from CSK_PersistentData module did not work.")
+      tmrMultiImageEdgeMatcher:start()
+      return false
     end
   else
     _G.logger:warning(nameOfModule .. ": CSK_PersistentData module not available.")
+    tmrMultiImageEdgeMatcher:start()
+    return false
   end
-  tmrMultiImageEdgeMatcher:start()
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.loadParameters", loadParameters)
 
 local function setLoadOnReboot(status)
   multiImageEdgeMatcher_Instances[selectedInstance].parameterLoadOnReboot = status
   _G.logger:fine(nameOfModule .. ": Set new status to load setting on reboot: " .. tostring(status))
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusLoadParameterOnReboot", status)
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.setLoadOnReboot", setLoadOnReboot)
+
+local function setFlowConfigPriority(status)
+  multiImageEdgeMatcher_Instances[selectedInstance].parameters.flowConfigPriority = status
+  _G.logger:fine(nameOfModule .. ": Set new status of FlowConfig priority: " .. tostring(status))
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusFlowConfigPriority", multiImageEdgeMatcher_Instances[selectedInstance].parameters.flowConfigPriority)
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.setFlowConfigPriority', setFlowConfigPriority)
 
 --- Function to react on initial load of persistent parameters
 local function handleOnInitialDataLoaded()
 
-  _G.logger:fine(nameOfModule .. ': Try to initially load parameter from CSK_PersistentData module.')
-  if string.sub(CSK_PersistentData.getVersion(), 1, 1) == '1' then
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    _G.logger:fine(nameOfModule .. ': Try to initially load parameter from CSK_PersistentData module.')
+    if string.sub(CSK_PersistentData.getVersion(), 1, 1) == '1' then
 
-    _G.logger:warning(nameOfModule .. ': CSK_PersistentData module is too old and will not work. Please update CSK_PersistentData module.')
+      _G.logger:warning(nameOfModule .. ': CSK_PersistentData module is too old and will not work. Please update CSK_PersistentData module.')
 
-    for j = 1, #multiImageEdgeMatcher_Instances do
-      multiImageEdgeMatcher_Instances[j].persistentModuleAvailable = false
-    end
-  else
-    -- Check if CSK_PersistentData version is >= 3.0.0
-    if tonumber(string.sub(CSK_PersistentData.getVersion(), 1, 1)) >= 3 then
-      local parameterName, loadOnReboot, totalInstances = CSK_PersistentData.getModuleParameterName(nameOfModule, '1')
-      -- Check for amount if instances to create
-      if totalInstances then
-        local c = 2
-        while c <= totalInstances do
-          addInstance()
-          c = c+1
+      for j = 1, #multiImageEdgeMatcher_Instances do
+        multiImageEdgeMatcher_Instances[j].persistentModuleAvailable = false
+      end
+    else
+      -- Check if CSK_PersistentData version is >= 3.0.0
+      if tonumber(string.sub(CSK_PersistentData.getVersion(), 1, 1)) >= 3 then
+        local parameterName, loadOnReboot, totalInstances = CSK_PersistentData.getModuleParameterName(nameOfModule, '1')
+        -- Check for amount if instances to create
+        if totalInstances then
+          local c = 2
+          while c <= totalInstances do
+            addInstance()
+            c = c+1
+          end
         end
       end
-    end
 
-    for i = 1, #multiImageEdgeMatcher_Instances do
-      local parameterName, loadOnReboot = CSK_PersistentData.getModuleParameterName(nameOfModule, tostring(i))
-
-      if parameterName then
-        multiImageEdgeMatcher_Instances[i].parametersName = parameterName
-        multiImageEdgeMatcher_Instances[i].parameterLoadOnReboot = loadOnReboot
+      if not multiImageEdgeMatcher_Instances then
+        return
       end
 
-      if multiImageEdgeMatcher_Instances[i].parameterLoadOnReboot then
-        setSelectedInstance(i)
-        loadParameters()
+      for i = 1, #multiImageEdgeMatcher_Instances do
+        local parameterName, loadOnReboot = CSK_PersistentData.getModuleParameterName(nameOfModule, tostring(i))
+
+        if parameterName then
+          multiImageEdgeMatcher_Instances[i].parametersName = parameterName
+          multiImageEdgeMatcher_Instances[i].parameterLoadOnReboot = loadOnReboot
+        end
+
+        if multiImageEdgeMatcher_Instances[i].parameterLoadOnReboot then
+          setSelectedInstance(i)
+          loadParameters()
+        end
       end
+      Script.notifyEvent('MultiImageEdgeMatcher_OnDataLoadedOnReboot')
     end
-    Script.notifyEvent('MultiImageEdgeMatcher_OnDataLoadedOnReboot')
   end
 end
 Script.register("CSK_PersistentData.OnInitialDataLoaded", handleOnInitialDataLoaded)
+
+local function resetModule()
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    clearFlowConfigRelevantConfiguration()
+    pageCalled()
+  end
+end
+Script.serveFunction('CSK_MultiImageEdgeMatcher.resetModule', resetModule)
+Script.register("CSK_PersistentData.OnResetAllModules", resetModule)
+
+-- *************************************************
+-- END of functions for CSK_PersistentData module usage
+-- *************************************************
 
 return funcs
 

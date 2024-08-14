@@ -5,25 +5,18 @@
 
 local availableAPIs = {}
 
+-- Function to load all default APIs
 local function loadAPIs()
   CSK_MultiImageEdgeMatcher = require 'API.CSK_MultiImageEdgeMatcher'
 
-  Container = require 'API.Container'
-  Engine = require 'API.Engine'
-  Image = require 'API.Image'
-  Image.Matching = {}
-  Image.Matching.EdgeMatcher = require 'API.Image.Matching.EdgeMatcher'
   Log = require 'API.Log'
   Log.Handler = require 'API.Log.Handler'
   Log.SharedLogger = require 'API.Log.SharedLogger'
-  Object = require 'API.Object'
-  Point = require 'API.Point'
-  Shape = require 'API.Shape'
+
+  Container = require 'API.Container'
+  Engine = require 'API.Engine'
+  Object = require 'API.Object'  
   Timer = require 'API.Timer'
-  Transform = require 'API.Transform'
-  View = require 'API.View'
-  View.ShapeDecoration = require 'API.View.ShapeDecoration'
-  View.TextDecoration = require 'API.View.TextDecoration'
 
   -- Check if related CSK modules are available to be used
   local appList = Engine.listApps()
@@ -32,14 +25,24 @@ local function loadAPIs()
       CSK_PersistentData = require 'API.CSK_PersistentData'
     elseif appList[i] == 'CSK_Module_UserManagement' then
       CSK_UserManagement = require 'API.CSK_UserManagement'
+    elseif appList[i] == 'CSK_Module_FlowConfig' then
+      CSK_FlowConfig = require 'API.CSK_FlowConfig'
     end
   end
 end
 
+-- Function to load specific APIs
 local function loadSpecificAPIs()
   -- If you want to check for specific APIs/functions supported on the device the module is running, place relevant APIs here
-  -- e.g.:
-  -- NTPClient = require 'API.NTPClient'
+  Image = require 'API.Image'
+  Image.Matching = {}
+  Image.Matching.EdgeMatcher = require 'API.Image.Matching.EdgeMatcher'
+  Point = require 'API.Point'
+  Shape = require 'API.Shape'
+  Transform = require 'API.Transform'
+  View = require 'API.View'
+  View.ShapeDecoration = require 'API.View.ShapeDecoration'
+  View.TextDecoration = require 'API.View.TextDecoration'
 end
 
 availableAPIs.default = xpcall(loadAPIs, debug.traceback) -- TRUE if all default APIs were loaded correctly

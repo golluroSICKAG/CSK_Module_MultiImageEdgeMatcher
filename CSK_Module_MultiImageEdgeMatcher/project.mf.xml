@@ -51,7 +51,7 @@ INFO: Regarding further details of the EdgeMatcher parameters please read the Ap
                     <param desc="Selected instance." multiplicity="1" name="selectedObject" type="int"/>
                 </event>
                 <event name="OnDataLoadedOnReboot">
-                    <desc>Event to call after module loaded parameters and is ready.</desc>
+                    <desc>Event to call after module tried to load parameters and is ready.</desc>
                 </event>
                 <event name="OnNewParameterName">
                     <desc>Notify name of persistent data parameter.</desc>
@@ -146,11 +146,15 @@ NUM will be replaced by the numeric identifier of instance (e.g. "OnNewStatusFou
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
                     <param desc="Amount of found matches." multiplicity="1" name="amount" type="int"/>
                 </event>
+                <event name="OnNewStatusFlowConfigPriority">
+                    <desc>Notify if FlowConfig should have priority for FlowConfig relevant configurations.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
                 <event name="OnNewTransformationNUM">
                     <desc>Example of dynamically created event to provide transformation data to be used for post processing. +
 NUM will be replaced by the numeric identifier of instance (e.g. "OnNewTransformation1"). +
 INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific instance exists.</desc>
-                    <param alias="Transform" desc="Transformation" multiplicity="1" name="transform" type="object"/>
+                    <param alias="Transform" desc="Transformation" multiplicity="[?*]" name="transform" type="object"/>
                 </event>
                 <event name="OnNewStatusResultTranslateX">
                     <desc>Notify pixel to transform result in x direction.</desc>
@@ -214,15 +218,25 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
                     <desc>Notify time in seconds after which the match algorithm should abort.</desc>
                     <param desc="Time in seconds after which the algorithm should abort." multiplicity="1" name="timeoutSeconds" type="float"/>
                 </event>
+                <event name="OnNewStatusCSKStyle">
+                    <desc>Notify UI style to use for CSK modules.</desc>
+                    <param desc="UI style" multiplicity="1" name="theme" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleVersion">
+                    <desc>Notify version of module.</desc>
+                    <param desc="Version" multiplicity="1" name="version" type="string"/>
+                </event>
+                <event name="OnNewStatusModuleIsActive">
+                    <desc>Notify if module can be used on device.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </event>
                 <function name="setParameterName">
                     <desc>Function to set the name of the parameters if saved/loaded via the CSK_PersistentData module.</desc>
                     <param desc="Name of the parameter" multiplicity="1" name="name" type="string"/>
                 </function>
                 <function name="sendParameters">
                     <desc>Send parameters to CSK_PersistentData module if possible to save them.</desc>
-                </function>
-                <function name="loadParameters">
-                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <param desc="[Optional] Set to TRUE if the data should NOT be saved immediately after sending." multiplicity="?" name="noDataSave" type="bool"/>
                 </function>
                 <function name="setLoadOnReboot">
                     <desc>Configure if this module should load its saved parameters at app/ device boot up.</desc>
@@ -250,7 +264,7 @@ INFO: Other modules can check via "Script.isServedAsEvent" if event of sepecific
 NUM will be replaced by the numeric identifier of instance (e.g. "processInstance1"). +
 INFO: Other modules can check via "Script.isServedAsFunction" if function of sepecific instance exists. +
 Needs then to be called via "Script.callFunction".</desc>
-                    <param alias="Image" desc="Transferred object (optional)" multiplicity="1" name="image" type="object"/>
+                    <param alias="Image" desc="Image" multiplicity="1" name="image" type="object"/>
                     <return desc="Processing result (optional)." multiplicity="?" name="result" type="bool"/>
                 </function>
                 <function name="addInstance">
@@ -338,10 +352,125 @@ Setting this parameter will invalidate any previous teach call!</desc>
                     <desc>Function to set the time the match call should abort if time exceeds.</desc>
                     <param desc="Time in seconds after which the algorithm should abort. The default value is 5 seconds." multiplicity="1" name="value" type="float"/>
                 </function>
+                <function name="clearFlowConfigRelevantConfiguration">
+                    <desc>Function to clear FlowConfig relevant configurations.</desc>
+                </function>
+                <function name="setFlowConfigPriority">
+                    <desc>Function to configure if FlowConfig should have priority for FlowConfig relevant configuration.</desc>
+                    <param desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="getStatusModuleActive">
+                    <desc>Function to get status if module is active.</desc>
+                    <return desc="Status" multiplicity="1" name="status" type="bool"/>
+                </function>
+                <function name="loadParameters">
+                    <desc>Load parameters for this module from the CSK_PersistentData module if possible and use them.</desc>
+                    <return desc="Success to load parameters." multiplicity="1" name="success" type="bool"/>
+                </function>
+                <function name="getParameters">
+                    <trait>released</trait>
+                    <desc>Function to get all parameters of the client in JSON format.</desc>
+                    <param desc="Number of instance to get parameters from." multiplicity="1" name="instanceNo" type="int"/>
+                    <return desc="JSON string with all parameters." multiplicity="1" name="jsonParameters" type="string"/>
+                </function>
+                <function name="resetModule">
+                    <desc>Function to reset main configuration of module.</desc>
+                </function>
             </serves>
         </crown>
+        <crown name="MultiImageEdgeMatcher_FC">
+            <trait>released</trait>
+            <desc>Crown to provide CSK_FlowConfig relevant features.</desc>
+            <serves/>
+            <crown name="ImageSource">
+                <desc>Set source of images to process.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Numeric identifier of processing instance (must be &gt;=1)." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="imageSource">
+                        <include>data-flow</include>
+                        <desc>Set source of images to process.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Set source of images to process.&#10;&#10;Parameter:&#10;1: image (IMAGE)" multiplicity="1" name="imageSource" type="string"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="OnNewImage">
+                <trait>released</trait>
+                <desc>Provide image aligned according to found object match.</desc>
+                <serves>
+                    <event name="OnNewImage">
+                        <include>data-flow</include>
+                        <desc>Provide image aligned according to found object match.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[InstanceNUM]'&#10;&#10;Parameter:&#10;1: aligned image (IMAGE)" multiplicity="1" name="OnNewImage" ref="CSK_MultiColorSelection_FC.ResultType" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Numeric identifier of processing instance (must be &gt;=1)." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="Process">
+                <desc>Set source of images to process and provide image aligned to found match and related transformation.</desc>
+                <serves>
+                    <function name="create">
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Number of processing instance." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="process">
+                        <include>data-flow</include>
+                        <desc>Set source of images to process and provide image aligned to found match and related transformation.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Set source of images to process.&#10;&#10;Parameter:&#10;1: image (IMAGE)" multiplicity="1" name="imageSource" type="string"/>
+                        <return desc="'CSK_MultiImageEdgeMatcher.OnNewAlignedImage[InstanceNUM]'&#10;&#10;Parameter:&#10;1: aligned image (IMAGE)" multiplicity="1" name="OnNewImage" type="string"/>
+                        <return desc="'CSK_MultiImageEdgeMatcher.OnNewTransformation[InstanceNUM]'&#10;&#10;Parameter:&#10;1: transformation (TRANSFORM)" multiplicity="1" name="OnNewTransformation" type="string"/>
+                    </function>
+                </serves>
+            </crown>
+            <crown name="OnNewTransformation">
+                <trait>released</trait>
+                <desc>Provide transformation of found match.</desc>
+                <serves>
+                    <event name="OnNewTransformation">
+                        <include>data-flow</include>
+                        <desc>Provide transformation of found match.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="'CSK_MultiImageEdgeMatcher.OnNewTransformation[InstanceNUM]'&#10;&#10;Parameter:&#10;1: transformation (TRANSFORM)" multiplicity="1" name="OnNewTransformation" ref="CSK_MultiColorSelection_FC.ResultType" type="string"/>
+                    </event>
+                    <function name="create">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig create function.</desc>
+                        <param desc="Numeric identifier of processing instance (must be &gt;=1)." multiplicity="1" name="Instance" type="int"/>
+                        <return desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                    </function>
+                    <function name="register">
+                        <trait>released</trait>
+                        <desc>Internally used CSK_FlowConfig register function.</desc>
+                        <param desc="Handle to internally used FlowConfig instance." multiplicity="1" name="handle" type="handle"/>
+                        <param desc="Internal parameter (not used)." multiplicity="1" name="eventname" type="string"/>
+                        <param desc="Internally used callback function." multiplicity="1" name="callback" type="string"/>
+                        <return desc="Success of register process." multiplicity="1" name="success" type="bool"/>
+                    </function>
+                </serves>
+            </crown>
+        </crown>
         <meta key="author">SICK AG</meta>
-        <meta key="version">1.0.0</meta>
+        <meta key="version">2.0.0</meta>
         <meta key="priority">low</meta>
         <meta key="copy-protected">false</meta>
         <meta key="read-protected">false</meta>
