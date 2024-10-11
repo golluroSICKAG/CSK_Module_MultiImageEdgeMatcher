@@ -199,7 +199,7 @@ end
 --- Function to send all relevant values to UI on resume
 local function handleOnExpiredTmrMultiImageEdgeMatcher()
 
-  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusModuleVersion", multiImageEdgeMatcher_Model.version)
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusModuleVersion", 'v' .. multiImageEdgeMatcher_Model.version)
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusCSKStyle", multiImageEdgeMatcher_Model.styleForUI)
   Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusModuleIsActive", _G.availableAPIs.default and _G.availableAPIs.specific)
 
@@ -278,7 +278,11 @@ end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.setSelectedInstance", setSelectedInstance)
 
 local function getInstancesAmount ()
-  return #multiImageEdgeMatcher_Instances
+  if multiImageEdgeMatcher_Instances then
+    return #multiImageEdgeMatcher_Instances
+  else
+    return 0
+  end
 end
 Script.serveFunction("CSK_MultiImageEdgeMatcher.getInstancesAmount", getInstancesAmount)
 

@@ -169,12 +169,12 @@ local function handleOnNewProcessing(image)
   -- Check size of queue
   local imageQueueSize = imageQueue:getSize()
   if processingParams.activeInUI == true and imageQueueSize ~= lastQueueSize then
-      Script.notifyEvent('MultiColorSelection_OnNewValueToForward' .. multiColorSelectionInstanceNumberString, 'MultiColorSelection_OnNewImageQueue', tostring(imageQueueSize))
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewValueToForward' .. multiImageEdgeMatcherInstanceNumberString, 'MultiImageEdgeMatcher_OnNewImageQueue', tostring(imageQueueSize))
       lastQueueSize = imageQueueSize
   end
 
   if imageQueueSize >= processingParams.maxImageQueueSize then
-    _G.logger:warning(nameOfModule .. ": Warning! ImageQueue of instance " .. multiColorSelectionInstanceNumberString .. "is >= " .. tostring(processingParams.maxImageQueueSize) .. "! Stop processing images! Data loss possible...")
+    _G.logger:warning(nameOfModule .. ": Warning! ImageQueue of instance " .. multiImageEdgeMatcherInstanceNumberString .. "is >= " .. tostring(processingParams.maxImageQueueSize) .. "! Stop processing images! Data loss possible...")
   else
   ]]
 
@@ -292,6 +292,13 @@ View.register(viewer, 'OnChange', handleOnChangeEditor)
 
 ---------------------------------------------------
 
+--- Function only used to forward the content from events to the served function.
+--- This is only needed, as deregistering from the event would internally release the served function and would make it uncallable from external.
+---@param image Image Image to process
+local function tempHandleOnNewProcessing(image)
+  handleOnNewProcessing(image)
+end
+
 --- Function to handle updates of processing parameters from Controller
 ---@param multiImageEdgeMatcherNo int Number of instance to update
 ---@param parameter string Parameter to update
@@ -305,16 +312,16 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
     if parameter == 'registeredEvent' then
       _G.logger:fine(nameOfModule .. ": Register instance " .. multiImageEdgeMatcherInstanceNumberString .. " on event " .. value)
       if processingParams.registeredEvent and processingParams.registeredEvent ~= '' then
-        Script.deregister(processingParams.registeredEvent, handleOnNewProcessing)
+        Script.deregister(processingParams.registeredEvent, tempHandleOnNewProcessing)
         imageQueue:clear()
       end
       processingParams.registeredEvent = value
-      Script.register(value, handleOnNewProcessing)
-      imageQueue:setFunction(handleOnNewProcessing)
+      Script.register(value, tempHandleOnNewProcessing)
+      imageQueue:setFunction(tempHandleOnNewProcessing)
 
     elseif parameter == 'deregisterFromEvent' then
       _G.logger:fine(nameOfModule .. ": Deregister instance " .. multiImageEdgeMatcherInstanceNumberString .. " from event")
-      Script.deregister(processingParams.registeredEvent, handleOnNewProcessing)
+      Script.deregister(processingParams.registeredEvent, tempHandleOnNewProcessing)
       processingParams.registeredEvent = ''
 
     elseif parameter == 'cancelEditors' then
@@ -344,7 +351,7 @@ local function handleOnNewProcessingParameter(multiImageEdgeMatcherNo, parameter
         installedEditorIconic = nil
       else
         if latestImage then
-          handleOnNewProcessing(latestImage)
+          tempHandleOnNewProcessing(latestImage)
         else
           viewer:clear()
           viewer:present('LIVE')

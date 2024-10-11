@@ -22,6 +22,8 @@ All notable changes to this project will be documented in this file.
 
 ### Bugfix
 - Did not cancel editor correctly if selecting other instance
+- Error if module is not active but 'getInstancesAmount' was called
+- processInstanceNUM did not work after deregistering from event to process images
 
 ## Release 1.0.0
 - Initial commit
