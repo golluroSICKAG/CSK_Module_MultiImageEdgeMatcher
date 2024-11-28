@@ -22,16 +22,13 @@
 
 ---@diagnostic disable: undefined-global, redundant-parameter, missing-parameter
 
--- See README file regarding StepByStep instruction to customize this template manually or make use of the cli renaming tool
--- CreationTemplateVersion: X.X.X
 --**************************************************************************
 --**********************Start Global Scope *********************************
 --**************************************************************************
-
 -- If app property "LuaLoadAllEngineAPI" is FALSE, use this to load and check for required APIs
 -- This can improve performance of garbage collection
-
 _G.availableAPIs = require('ImageProcessing/MultiImageEdgeMatcher/helper/checkAPIs') -- can be used to adjust function scope of the module related on available APIs of the device
+
 -----------------------------------------------------------
 -- Logger
 _G.logger = Log.SharedLogger.create('ModuleLogger')
@@ -47,12 +44,20 @@ _G.logHandle:applyConfig()
 local multiImageEdgeMatcher_Model = require('ImageProcessing/MultiImageEdgeMatcher/MultiImageEdgeMatcher_Model')
 
 local multiImageEdgeMatcher_Instances = {} -- Handle all instances
-table.insert(multiImageEdgeMatcher_Instances, multiImageEdgeMatcher_Model.create(1)) -- Create at least 1 instance
 
 -- Load script to communicate with the MultiImageEdgeMatcher_Model UI
 -- Check / edit this script to see/edit functions which communicate with the UI
 local multiImageEdgeMatcherController = require('ImageProcessing/MultiImageEdgeMatcher/MultiImageEdgeMatcher_Controller')
-multiImageEdgeMatcherController.setMultiImageEdgeMatcher_Instances_Handle(multiImageEdgeMatcher_Instances) -- share handle of instances
+
+if _G.availableAPIs.default and _G.availableAPIs.specific then
+  local setInstanceHandle = require('ImageProcessing/MultiImageEdgeMatcher/FlowConfig/MultiImageEdgeMatcher_FlowConfig')
+  table.insert(multiImageEdgeMatcher_Instances, multiImageEdgeMatcher_Model.create(1)) -- Create at least 1 instance
+  multiImageEdgeMatcherController.setMultiImageEdgeMatcher_Instances_Handle(multiImageEdgeMatcher_Instances) -- share handle of instances
+  setInstanceHandle(multiImageEdgeMatcher_Instances)
+else
+  _G.logger:warning("CSK_MultiImageEdgeMatcher: Relevant CROWN(s) not available on device. Module is not supported...")
+end
+
 
 --**************************************************************************
 --**********************End Global Scope ***********************************
@@ -74,9 +79,10 @@ local function main()
   -- Check UI for setup
   ----------------------------------------------------------------------------------------
 
-  CSK_MultiImageEdgeMatcher.setSelectedInstance(1) --> select instance of module
+  if _G.availableAPIs.default and _G.availableAPIs.specific then
+    CSK_MultiImageEdgeMatcher.setSelectedInstance(1)
+  end
   CSK_MultiImageEdgeMatcher.pageCalled() -- Update UI
-
 end
 Script.register("Engine.OnStarted", main)
 

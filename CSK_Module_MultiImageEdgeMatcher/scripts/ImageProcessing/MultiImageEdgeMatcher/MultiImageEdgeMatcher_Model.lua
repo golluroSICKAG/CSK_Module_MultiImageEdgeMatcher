@@ -13,11 +13,21 @@ local nameOfModule = 'CSK_MultiImageEdgeMatcher'
 local multiImageEdgeMatcher = {}
 multiImageEdgeMatcher.__index = multiImageEdgeMatcher
 
+multiImageEdgeMatcher.styleForUI = 'None' -- Optional parameter to set UI style
+multiImageEdgeMatcher.version = Engine.getCurrentAppVersion() -- Version of module
+
 --**************************************************************************
 --********************** End Global Scope **********************************
 --**************************************************************************
 --**********************Start Function Scope *******************************
 --**************************************************************************
+
+--- Function to react on UI style change
+local function handleOnStyleChanged(theme)
+  multiImageEdgeMatcher.styleForUI = theme
+  Script.notifyEvent("MultiImageEdgeMatcher_OnNewStatusCSKStyle", multiImageEdgeMatcher.styleForUI)
+end
+Script.register('CSK_PersistentData.OnNewStatusCSKStyle', handleOnStyleChanged)
 
 --- Function to create new instance
 ---@param multiImageEdgeMatcherInstanceNo int Number of instance
@@ -49,6 +59,7 @@ function multiImageEdgeMatcher.create(multiImageEdgeMatcherInstanceNo)
 
   -- Parameters to be saved permanently if wanted
   self.parameters = {}
+  self.parameters.flowConfigPriority = CSK_FlowConfig ~= nil or false -- Status if FlowConfig should have priority for FlowConfig relevant configurations
   self.parameters.registeredEvent = '' -- Event to register for new images to process, like 'CSK_ImagePlayer.OnNewImage'
   self.parameters.processingFile = 'CSK_MultiImageEdgeMatcher_Processing' -- Which file to use for processing (will be started in own thread)
 
