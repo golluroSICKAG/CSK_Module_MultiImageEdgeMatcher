@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## Release 2.0.1
+
+### Bugfix
+- ROI too small for bigger images
+- Translation was limited to positive values
+
 ## Release 2.0.0
 
 ### New features

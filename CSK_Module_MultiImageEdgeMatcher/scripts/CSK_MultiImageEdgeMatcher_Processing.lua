@@ -39,6 +39,7 @@ local width_ROI = 100.0 -- width of ROI
 local height_ROI = 100.0 -- height of ROI
 local center_ROI = Point.create(centerX_ROI, centerY_ROI) -- centerPoint of ROI
 local roi = Shape.createRectangle(center_ROI, width_ROI, height_ROI) -- ROI itself
+local gotImageSize = false -- Flag to check if image size was checked
 
 -- Event to notify amount of found matches
 Script.serveEvent("CSK_MultiImageEdgeMatcher.OnNewStatusFoundMatches" .. multiImageEdgeMatcherInstanceNumberString, "MultiImageEdgeMatcher_OnNewStatusFoundMatches" .. multiImageEdgeMatcherInstanceNumberString, 'int')
@@ -96,6 +97,21 @@ processingParams.matcher:setTimeout(processingParams.timeout)
 processingParams.resultTransX = scriptParams:get('resultTransX')
 processingParams.resultTransY = scriptParams:get('resultTransY')
 
+--- Function to create ROI related to image size
+---@param img Image Image to process
+local function checkForImageSize(img)
+  width_ROI = Image.getWidth(img)
+  height_ROI = Image.getHeight(img)
+
+  centerX_ROI = width_ROI/2
+  centerY_ROI = height_ROI/2
+
+  center_ROI = Point.create(centerX_ROI, centerY_ROI)
+  roi = Shape.createRectangle(center_ROI, width_ROI/6, height_ROI/6)
+
+  gotImageSize = true
+end
+
 ---------------------------
 
 --- Function to teach the EdgeMachter instance.
@@ -104,6 +120,9 @@ local function teachEdgeMatcher(img)
 
   viewer:clear()
   local parentID = viewer:addImage(img, nil, imageID)
+  if not gotImageSize then
+    checkForImageSize(img)
+  end
   viewer:addShape(roi, decorationOK, roiID, parentID)
   viewer:installEditor(roiID)
   installedEditorIconic = roiID
@@ -152,6 +171,9 @@ local function handleOnNewProcessing(image)
     if installedEditorIconic == nil then
       viewer:clear()
       local parentEditorID = viewer:addImage(image, nil, imageID)
+      if not gotImageSize then
+        checkForImageSize(image)
+      end
       viewer:addShape(roi, decorationOK, roiID, parentEditorID)
       viewer:installEditor(roiID)
       installedEditorIconic = roiID
