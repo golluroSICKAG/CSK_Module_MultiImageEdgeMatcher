@@ -100,8 +100,11 @@ processingParams.resultTransY = scriptParams:get('resultTransY')
 --- Function to create ROI related to image size
 ---@param img Image Image to process
 local function checkForImageSize(img)
-  width_ROI = Image.getWidth(img)
-  height_ROI = Image.getHeight(img)
+  local width_ROI, height_ROI = Image.getSize(img)
+  local pixelSizeX = Image.getPixelSize(img)
+
+  width_ROI = width_ROI * pixelSizeX
+  height_ROI = height_ROI * pixelSizeX
 
   centerX_ROI = width_ROI/2
   centerY_ROI = height_ROI/2
