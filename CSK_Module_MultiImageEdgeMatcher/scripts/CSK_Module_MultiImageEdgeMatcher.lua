@@ -50,10 +50,9 @@ local multiImageEdgeMatcher_Instances = {} -- Handle all instances
 local multiImageEdgeMatcherController = require('ImageProcessing/MultiImageEdgeMatcher/MultiImageEdgeMatcher_Controller')
 
 if _G.availableAPIs.default and _G.availableAPIs.specific then
-  local setInstanceHandle = require('ImageProcessing/MultiImageEdgeMatcher/FlowConfig/MultiImageEdgeMatcher_FlowConfig')
+  require('ImageProcessing/MultiImageEdgeMatcher/FlowConfig/MultiImageEdgeMatcher_FlowConfig')
   table.insert(multiImageEdgeMatcher_Instances, multiImageEdgeMatcher_Model.create(1)) -- Create at least 1 instance
   multiImageEdgeMatcherController.setMultiImageEdgeMatcher_Instances_Handle(multiImageEdgeMatcher_Instances) -- share handle of instances
-  setInstanceHandle(multiImageEdgeMatcher_Instances)
 else
   _G.logger:warning("CSK_MultiImageEdgeMatcher: Relevant CROWN(s) not available on device. Module is not supported...")
 end

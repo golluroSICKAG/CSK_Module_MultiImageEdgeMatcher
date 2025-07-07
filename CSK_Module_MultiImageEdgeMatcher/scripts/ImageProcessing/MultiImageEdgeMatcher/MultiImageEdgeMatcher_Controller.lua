@@ -496,9 +496,11 @@ Script.serveFunction('CSK_MultiImageEdgeMatcher.getStatusModuleActive', getStatu
 
 local function clearFlowConfigRelevantConfiguration()
   for i = 1, #multiImageEdgeMatcher_Instances do
-    multiImageEdgeMatcher_Instances[i].parameters.registeredEvent = ''
-    Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', i, 'deregisterFromEvent', '')
-    Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', '')
+    if multiImageEdgeMatcher_Instances[i].parameters.flowConfigPriority then
+      multiImageEdgeMatcher_Instances[i].parameters.registeredEvent = ''
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', i, 'deregisterFromEvent', '')
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', '')
+    end
   end
 end
 Script.serveFunction('CSK_MultiImageEdgeMatcher.clearFlowConfigRelevantConfiguration', clearFlowConfigRelevantConfiguration)
@@ -549,6 +551,9 @@ local function loadParameters()
       _G.logger:info(nameOfModule .. ": Loaded parameters for multiImageEdgeMatcherObject " .. tostring(selectedInstance) .. " from CSK_PersistentData module.")
 
       multiImageEdgeMatcher_Instances[selectedInstance].parameters = helperFuncs.convertContainer2Table(data)
+
+      multiImageEdgeMatcher_Instances[selectedInstance].parameters = helperFuncs.checkParameters(multiImageEdgeMatcher_Instances[selectedInstance].parameters, helperFuncs.defaultParameters.getParameters())
+
       local serMatcher = Object.serialize(multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher, 'JSON')
       local newMatcher = Object.deserialize(serMatcher, 'JSON')
       multiImageEdgeMatcher_Instances[selectedInstance].parameters.matcher = newMatcher
@@ -635,7 +640,11 @@ Script.register("CSK_PersistentData.OnInitialDataLoaded", handleOnInitialDataLoa
 
 local function resetModule()
   if _G.availableAPIs.default and _G.availableAPIs.specific then
-    clearFlowConfigRelevantConfiguration()
+    for i = 1, #multiImageEdgeMatcher_Instances do
+      multiImageEdgeMatcher_Instances[i].parameters.registeredEvent = ''
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewProcessingParameter', i, 'deregisterFromEvent', '')
+      Script.notifyEvent('MultiImageEdgeMatcher_OnNewStatusRegisteredEvent', '')
+    end
     pageCalled()
   end
 end
